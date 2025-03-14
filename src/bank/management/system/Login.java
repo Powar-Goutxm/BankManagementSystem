@@ -14,25 +14,30 @@ public class Login extends JFrame implements ActionListener{
     JButton signin,clear,signup;
     JTextField cardTField;
     JPasswordField pinTField;
+    
      //Constructor of Login class
     Login(){
+    //creating the Frame  
+    setSize(750,500);
+    setLocation(250,100);
+    setVisible(true); 
+    setDefaultCloseOperation(EXIT_ON_CLOSE);
     setTitle("Bank");
+    
     //Setting the Icon
     ImageIcon i1 = new ImageIcon(ClassLoader.getSystemResource("icons/bankk.jpg"));
     Image i2 = i1.getImage().getScaledInstance(100,100, Image.SCALE_DEFAULT);
     ImageIcon i3 = new ImageIcon(i2); 
     JLabel label=  new JLabel(i3);
     add(label);
-    setLocation(250,100);
-    setSize(900,500);
-    setVisible(true);
+   
     label.setBounds(70, 10, 100, 100);
      setLayout(null);
-        getContentPane().setBackground(Color.white);
+     getContentPane().setBackground(Color.white);
    
         //setting headline
     JLabel text = new JLabel("Welcome to the Bank ");
-    text.setBounds(260, 40, 400, 40);
+    text.setBounds(225, 40, 400, 40);
     text.setFont(new Font("Osward", Font.BOLD,35));
     add(text);
    
