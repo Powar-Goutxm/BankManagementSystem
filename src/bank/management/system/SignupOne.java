@@ -14,12 +14,16 @@ public class SignupOne extends JFrame{
      JTextField cityTField;
      JTextField stateTField;
      JTextField pcodeTField;
+     JButton next;
+     JRadioButton m,f,other,married,unmarried,pnts;
+     JDateChooser datechooser;
+     
     
     //constructor
     SignupOne(){
-        //creating the frame
+        //setting the frame
     getContentPane().setBackground(Color.white);
-  setDefaultCloseOperation(EXIT_ON_CLOSE);
+    setDefaultCloseOperation(EXIT_ON_CLOSE);
     setSize(690,720);
     setLocation(350,10);
     setVisible(true);
@@ -39,8 +43,7 @@ public class SignupOne extends JFrame{
     personaldet.setBounds(200, 80, 300, 25);
     add(personaldet);
     
-    //Getting Personal details
-                             
+    //Getting Personal details           
     JLabel name = new JLabel("Name:");
     name.setFont(new Font("Raleway", Font.BOLD, 17));
     name.setBounds(100, 130, 120, 25);
@@ -50,6 +53,7 @@ public class SignupOne extends JFrame{
     nameTField.setBounds(230, 130, 350, 25);
     add(nameTField);
     
+    //fathers name
     JLabel fname = new JLabel("Father's Name:");
     fname.setFont(new Font("Raleway", Font.BOLD, 17));
     fname.setBounds(100, 175, 200, 25);
@@ -59,6 +63,7 @@ public class SignupOne extends JFrame{
     fnameTField.setBounds(230, 175, 350, 25);
     add(fnameTField);
     
+    //mothers name
     JLabel mname = new JLabel("Mother's Name:");
     mname.setFont(new Font("Raleway", Font.BOLD, 17));
     mname.setBounds(100, 220, 200, 25);
@@ -67,22 +72,41 @@ public class SignupOne extends JFrame{
     mnameTField.setFont(new Font("Raleway",Font.BOLD,14));
     mnameTField.setBounds(230, 220, 350, 25);
     add(mnameTField);
-
     
+    //gender
     JLabel gen= new JLabel("Gender:");
     gen.setFont(new Font("Raleway", Font.BOLD, 17));
     gen.setBounds(100, 265, 120, 25);
     add(gen); 
+    //radiobuttonsforgender
+    m = new JRadioButton("Male");
+    m.setBounds(230, 265, 60, 30);
+    m.setBackground(Color.white);
+    add(m);
+    f = new JRadioButton("Female");
+    f.setBounds(325, 265, 80, 30);
+    f.setBackground(Color.white);
+    add(f);
+    other = new JRadioButton("Other");
+    other.setBounds(425, 265, 100, 30);
+    other.setBackground(Color.white);
+    add(other);
+    ButtonGroup gengrp = new ButtonGroup();
+    gengrp.add(m);
+    gengrp.add(f);
+    gengrp.add(other);
     
-    
+    //dob
     JLabel dob = new JLabel("Date of Birth:");
     dob.setFont(new Font("Raleway", Font.BOLD, 17));
     dob.setBounds(100, 310, 120, 25);
     add(dob);
-    JDateChooser datechooser = new JDateChooser();
-    datechooser.setBounds(230, 310, 140, 25);
+    datechooser = new JDateChooser();
+    datechooser.setBounds(230, 310, 350, 25);
+    datechooser.setForeground(Color.BLACK);
     add(datechooser);
     
+    //email
      JLabel email= new JLabel("Email:");
     email.setFont(new Font("Raleway", Font.BOLD, 17));
     email.setBounds(100, 355, 120, 25);
@@ -91,14 +115,31 @@ public class SignupOne extends JFrame{
     emailTField.setFont(new Font("Raleway",Font.BOLD,14));
     emailTField.setBounds(230, 355, 350, 25);
     add(emailTField);
-
     
-   
+    //maritalstatus
      JLabel mstatus= new JLabel("Marital Status:");
     mstatus.setFont(new Font("Raleway", Font.BOLD, 17));
     mstatus.setBounds(100, 400, 120, 25);
     add(mstatus);
+    //radiobuttonsformstatus
+    married = new JRadioButton("Married");
+    married.setBounds(230, 400, 90, 30);
+    married.setBackground(Color.white);
+    add(married);
+    unmarried = new JRadioButton("Unmarried");
+    unmarried.setBounds(325, 400, 90, 30);
+    unmarried.setBackground(Color.white);
+    add(unmarried);
+    pnts = new JRadioButton("Prefer not to say");
+    pnts.setBounds(425, 400, 150, 30);
+    pnts.setBackground(Color.white);
+    add(pnts);
+    ButtonGroup mgrp = new ButtonGroup();
+    mgrp.add(married);
+     mgrp.add(unmarried);
+    mgrp.add(pnts);
     
+    //address
     JLabel addr= new JLabel("Address:");
     addr.setFont(new Font("Raleway", Font.BOLD, 17));
     addr.setBounds(100, 445, 120, 25);
@@ -135,6 +176,12 @@ public class SignupOne extends JFrame{
     pcodeTField.setBounds(230, 580, 350, 25);
     add(pcodeTField);
     
+    next = new JButton("Next");
+    next.setBackground(Color.blue);
+    next.setForeground(Color.white);
+    next.setBounds(500, 620, 80, 30);
+    next.setFont(new Font("Raleway",Font.BOLD, 14));
+    add(next);
     }
     public static void main(String args[]){
     new SignupOne();
