@@ -1,24 +1,19 @@
-
 package bank.management.system;
 import java.awt.*;
 import javax.swing.*;
 import java.util.*;
 import com.toedter.calendar.JDateChooser;
-public class SignupOne extends JFrame{
+import java.awt.event.*;
+
+public class SignupOne extends JFrame implements ActionListener {
     //Global declaration
-     JTextField nameTField;
-     JTextField fnameTField;
-     JTextField mnameTField;
-     JTextField emailTField;
-     JTextField addrTField;
-     JTextField cityTField;
-     JTextField stateTField;
-     JTextField pcodeTField;
+     int random;
+     JTextField nameTField,fnameTField,mnameTField,emailTField;
+     JTextField localityTField,cityTField, stateTField,pcodeTField;
      JButton next;
      JRadioButton m,f,other,married,unmarried,pnts;
      JDateChooser datechooser;
      
-    
     //constructor
     SignupOne(){
         //setting the frame
@@ -31,7 +26,7 @@ public class SignupOne extends JFrame{
     
     //To get a random form no
     Random r = new Random();
-    int random = Math.abs(r.nextInt()/100000);
+    random = Math.abs(r.nextInt()/100000);
    
     JLabel formno = new JLabel("APPLICATION FORM NO. " + random);
     formno.setFont(new Font("Raleway", Font.BOLD, 32));
@@ -140,14 +135,14 @@ public class SignupOne extends JFrame{
     mgrp.add(pnts);
     
     //address
-    JLabel addr= new JLabel("Address:");
+    JLabel addr= new JLabel("locality:");
     addr.setFont(new Font("Raleway", Font.BOLD, 17));
     addr.setBounds(100, 445, 120, 25);
     add(addr);
-    addrTField = new JTextField(); 
-    addrTField.setFont(new Font("Raleway",Font.BOLD,14));
-    addrTField.setBounds(230, 445, 350, 25);
-    add(addrTField);
+    localityTField = new JTextField(); 
+    localityTField.setFont(new Font("Raleway",Font.BOLD,14));
+    localityTField.setBounds(230, 445, 350, 25);
+    add(localityTField);
     
     JLabel city= new JLabel("City:");
     city.setFont(new Font("Raleway", Font.BOLD, 17));
@@ -181,8 +176,57 @@ public class SignupOne extends JFrame{
     next.setForeground(Color.white);
     next.setBounds(500, 620, 80, 30);
     next.setFont(new Font("Raleway",Font.BOLD, 14));
+    next.addActionListener(this);
     add(next);
     }
+    
+    @Override
+    public void actionPerformed(ActionEvent e){
+    String formno = "" + random; //explicit type conversion
+    String name = nameTField.getText();
+    String fname = fnameTField.getText();
+    String mname = mnameTField.getText();
+    String dob = ((JTextField) datechooser.getDateEditor().getUiComponent()).getText();
+    String email = emailTField.getText();
+    
+    String locality = localityTField.getText();
+    String city = cityTField.getText();
+    String state = stateTField.getText();
+    String pin = pcodeTField.getText();
+    
+     //checking radio buttons clicked
+    String gender = null;
+    if (m.isSelected()){
+           gender = "Male";
+       }else if(f.isSelected()){
+           gender = "Female";
+       }else if(other.isSelected()){
+           gender = "Other";
+       }
+    String marriage = null;
+    if(married.isSelected()){
+           marriage = "Married";
+        }else if(unmarried.isSelected()){
+           marriage = "Unmarried";
+        }else if(pnts.isSelected()){
+           marriage = "Prefer Not to Say";
+        }
+       try{
+        if(name.equals("") || fname.equals("") || mname.equals("") || dob.equals("") || email.equals("")
+                || locality.equals("") || state.equals("") || city.equals("") || pin.equals("")){
+            JOptionPane.showMessageDialog(null, "Enter All the Details");
+               }else{
+            connection c = new connection();
+            String query = "insert into SignUp values ('"+formno+"','"+name+"','"+fname+"','"+mname+"','"+dob+"','"+gender+"','"+email+"','"+marriage+"','"+locality+"','"+state+"','"+city+"','"+pin+"')";            
+            c.statement.executeUpdate(query);
+        
+        }
+        
+       }catch(Exception ae){
+       System.out.println(ae);
+       }
+    }
+    
     public static void main(String args[]){
     new SignupOne();
     }
