@@ -23,6 +23,7 @@ public class SignupOne extends JFrame implements ActionListener {
     setLocation(350,10);
     setVisible(true);
     setLayout(null);
+     setTitle("NEW ACCOUNT APPLICATION FORM - PAGE 1");
     
     //To get a random form no
     Random r = new Random();
