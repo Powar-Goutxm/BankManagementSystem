@@ -6,7 +6,7 @@ public class connection {
     Connection conn;
     Statement statement;
     String url = "jdbc:mysql://localhost:3306/BankManagementSystem";
-    String user = "root";
+    String user = "goutammmm";
     String password = "Ecomp@2025";
     
     public connection(){

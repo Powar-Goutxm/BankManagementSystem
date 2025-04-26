@@ -6,14 +6,16 @@ package bank.management.system;
 import java.awt.*;
 import javax.swing.*;
 import java.awt.event.*;
+import java.sql.*;
+
 //Bank Management System 
 
  //Login class 
 public class Login extends JFrame implements ActionListener{
     //Global declaration
-    JButton signin,clear,signup;
-    JTextField cardTField;
-    JPasswordField pinTField;
+    JButton loginB,clearB,signupB;
+    JTextField userNameTField;
+    JPasswordField passwordTField;
     
      //Constructor of Login class
     Login(){
@@ -22,7 +24,7 @@ public class Login extends JFrame implements ActionListener{
     setLocation(250,100);
     setVisible(true); 
     setDefaultCloseOperation(EXIT_ON_CLOSE);
-    setTitle("Bank");
+    setTitle("Bank Login");
     
     //Setting the Icon
     ImageIcon i1 = new ImageIcon(ClassLoader.getSystemResource("icons/bankk.jpg"));
@@ -41,64 +43,88 @@ public class Login extends JFrame implements ActionListener{
     text.setFont(new Font("Osward", Font.BOLD,35));
     add(text);
    
-    //card no
-    JLabel cardno = new JLabel("Card No: "); 
-    cardno.setFont(new Font("Osward", Font.BOLD,25));
-    cardno.setBounds(120, 150, 150, 30);
-    add(cardno);
-    cardTField = new JTextField();
-    cardTField.setFont(new Font("Arial",Font.BOLD,15));
-    cardTField.setBounds(250, 150, 250, 30);
-    add(cardTField);
+    //username
+    JLabel username = new JLabel("Username: "); 
+    username.setFont(new Font("Osward", Font.BOLD,25));
+    username.setBounds(120, 150, 150, 30);
+    add(username);
+    userNameTField = new JTextField();
+    userNameTField.setFont(new Font("Arial",Font.BOLD,15));
+    userNameTField.setBounds(250, 150, 250, 30);
+    userNameTField.setToolTipText("Enter Your Username or Email");
+    add(userNameTField);
     
-     //Pin no
-    JLabel pin = new JLabel("PIN No: "); 
+     //password
+    JLabel pin = new JLabel("Password: "); 
     pin.setBounds(120, 220, 400, 40);
     pin.setFont(new Font("Osward", Font.BOLD,25));
     add(pin);
-    pinTField = new JPasswordField();
-    pinTField.setFont(new Font("Arial",Font.BOLD,15));
-    cardTField.setBounds(250, 150, 250, 30);
-    pinTField.setBounds(250, 220, 250, 40);
-    add(pinTField);
+    passwordTField = new JPasswordField();
+    passwordTField.setFont(new Font("Arial",Font.BOLD,15));
+    passwordTField.setBounds(250, 150, 250, 30);
+     passwordTField.setBounds(250, 220, 250, 30);
+    passwordTField.setToolTipText("Enter Your Password");
+    add(passwordTField);
      
-     //signin button
-       signin =new JButton("SIGN IN");
-       signin.setBounds(250, 300, 100, 30);
-       signin.setBackground(Color.blue);
-       signin.setForeground(Color.white);
-       signin.addActionListener(this);
-       add(signin);
+     //Login button
+       loginB =new JButton("LOGIN");
+       loginB.setBounds(250, 300, 100, 30);
+       loginB.setBackground(Color.blue);
+       loginB.setForeground(Color.white);
+       loginB.addActionListener(this);
+       add(loginB);
        
        //Clear button
-      clear =new JButton("CLEAR");
-      clear.setBounds(400, 300, 100, 30);
-      clear.setBackground(Color.blue);
-      clear.setForeground(Color.white);
-      clear.addActionListener(this);
-      add(clear);
+      clearB =new JButton("CLEAR");
+      clearB.setBounds(400, 300, 100, 30);
+      clearB.setBackground(Color.blue);
+      clearB.setForeground(Color.white);
+      clearB.addActionListener(this);
+      add(clearB);
        
        //signup button
-      signup =new JButton("SIGN UP");
-      signup.setBounds(300, 350, 150, 30);
-      signup.setBackground(Color.blue);
-      signup.setForeground(Color.white);
-      signup.addActionListener(this);
-      add(signup);
+      signupB =new JButton("SIGN UP");
+      signupB.setBounds(300, 350, 150, 30);
+      signupB.setBackground(Color.blue);
+      signupB.setForeground(Color.white);
+      signupB.addActionListener(this);
+      add(signupB);
     }
     //Button working
     public void actionPerformed(ActionEvent e){
-        if(e.getSource() == signin){
-           
-        }else if(e.getSource() == clear){
-            cardTField.setText("");
-            pinTField.setText("");
-        }else if(e.getSource() == signup){
-            setVisible(false);
+        if(e.getSource() == loginB){
+            String username = userNameTField.getText();
+            String password = new String (passwordTField.getPassword());
+            
+            try{
+                connection login = new connection();
+                String query = "SELECT * FROM login WHERE Username = ? AND Password = ?";
+                
+                PreparedStatement pstmt = login.conn.prepareStatement(query);
+                pstmt.setString(1, username);
+                pstmt.setString(2, password);
+                
+                ResultSet rs = pstmt.executeQuery();
+                if(rs.next()){
+                JOptionPane.showMessageDialog(null, "Login Succesfull");
+                //new Dashboard().setVisible(true);
+                dispose();
+                }
+                else{
+                JOptionPane.showMessageDialog(null, "Invalid Username or Password");
+                }
+            }catch(Exception ex){
+                ex.printStackTrace();
+            }        
+        }else if(e.getSource() == clearB){
+            userNameTField.setText("");
+            passwordTField.setText("");
+        }else if(e.getSource() == signupB){
+           dispose();
            new SignupOne().setVisible(true);
         }
     }
     public static void main(String args[]){
-        new Login();
+       Login login = new Login();
     } 
 }
