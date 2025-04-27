@@ -14,10 +14,14 @@ public class AdminDashboard extends JFrame {
         //setting the frame
     getContentPane().setBackground(Color.white);
     setDefaultCloseOperation(EXIT_ON_CLOSE);
-    setSize(690,720);
-    setLocation(350,10);
+    setSize(690,600);
+    setLocation(350,50);
     setVisible(true);
     setLayout(null);
      setTitle("Admin Dashboard");
+     
+     JLabel idLabel = new JLabel("Your Customer ID: ");
+        idLabel.setBounds(50, 50, 300, 30);
+        add(idLabel);
    }
 }

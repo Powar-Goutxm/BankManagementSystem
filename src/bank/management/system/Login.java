@@ -115,6 +115,7 @@ public class Login extends JFrame implements ActionListener{
       signupB.addActionListener(this);
       add(signupB);
     }
+    
     //Button working
     public void actionPerformed(ActionEvent e){
         if(e.getSource() == loginB){
@@ -126,10 +127,16 @@ public class Login extends JFrame implements ActionListener{
             }else{
                 role = "admin";
             }
+            //check if fields are blank
+            if (username.isEmpty() || password.isEmpty()) {
+        JOptionPane.showMessageDialog(this, "Username and password cannot be empty!");
+            }
             
             try{
                 connection login = new connection();
-                String query = "SELECT * FROM login WHERE Username = ? AND Password = ? AND Role = ?";
+                String query = "SELECT l.* , c.C_Id , a.Adm_Id " + "FROM Login l" + 
+                        "LEFT JOIN Customer c ON l.C_Id = c.C_Id" +
+                       " WHERE l.Username = ? AND l.Password = ? AND l.Role = ?";
                 
                 PreparedStatement pstmt = login.conn.prepareStatement(query);
                 pstmt.setString(1, username);
@@ -138,21 +145,21 @@ public class Login extends JFrame implements ActionListener{
                 
                 ResultSet rs = pstmt.executeQuery();
                 if(rs.next()){
+                    String storedUsername = rs.getString("username");
                     String storedPass = rs.getString("Password");
-                    if(password.equals(storedPass)){
-                
-                if("admin".equals(role)){
-                new AdminDashboard().setVisible(true);
-                    }else
-                        {
+                  if(password.equals(storedPass) && username.equals(storedUsername)){
+                      if("admin".equals(role)){
+                         new AdminDashboard().setVisible(true);
+                            }else
+                            {
                             int customerId = rs.getInt("C_Id");
                             new CustomerDashboard(customerId).setVisible(true);
-                        }
-                              dispose();
-                }
-                else{
+                            }
+                        dispose();
+                         }
+                     else{
                 JOptionPane.showMessageDialog(null, "Invalid Username or Password");
-                 }
+                      }  
                 }
             }catch(Exception ex){
                 ex.printStackTrace();
