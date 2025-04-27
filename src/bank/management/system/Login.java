@@ -16,6 +16,7 @@ public class Login extends JFrame implements ActionListener{
     JButton loginB,clearB,signupB;
     JTextField userNameTField;
     JPasswordField passwordTField;
+    JRadioButton customerRB,adminRB;
     
      //Constructor of Login class
     Login(){
@@ -55,20 +56,38 @@ public class Login extends JFrame implements ActionListener{
     add(userNameTField);
     
      //password
-    JLabel pin = new JLabel("Password: "); 
-    pin.setBounds(120, 220, 400, 40);
-    pin.setFont(new Font("Osward", Font.BOLD,25));
-    add(pin);
+    JLabel pass = new JLabel("Password: "); 
+    pass.setBounds(120, 220, 400, 40);
+    pass.setFont(new Font("Osward", Font.BOLD,25));
+    add(pass);
     passwordTField = new JPasswordField();
     passwordTField.setFont(new Font("Arial",Font.BOLD,15));
-    passwordTField.setBounds(250, 150, 250, 30);
-     passwordTField.setBounds(250, 220, 250, 30);
+    passwordTField.setBounds(250, 220, 250, 30);
     passwordTField.setToolTipText("Enter Your Password");
     add(passwordTField);
      
+    //choose role
+    JLabel role = new JLabel("Login as:");
+    role.setBounds(180, 270, 150, 27);
+    role.setFont(new Font("Arial",Font.PLAIN,15));
+    add(role);
+    
+    customerRB = new JRadioButton("Customer", true);
+    customerRB.setBounds(250, 270, 100, 25);
+    customerRB.setBackground(Color.white);
+    add(customerRB);
+    adminRB = new JRadioButton("Admin");
+    adminRB.setBackground(Color.white);
+    adminRB.setBounds(390, 270, 100, 25);
+    add(adminRB);
+    
+    ButtonGroup roleGroup = new ButtonGroup();
+    roleGroup.add(customerRB);
+    roleGroup.add(adminRB);
+    
      //Login button
        loginB =new JButton("LOGIN");
-       loginB.setBounds(250, 300, 100, 30);
+       loginB.setBounds(250, 320, 100, 30);
        loginB.setBackground(Color.blue);
        loginB.setForeground(Color.white);
        loginB.addActionListener(this);
@@ -76,15 +95,21 @@ public class Login extends JFrame implements ActionListener{
        
        //Clear button
       clearB =new JButton("CLEAR");
-      clearB.setBounds(400, 300, 100, 30);
+      clearB.setBounds(400, 320, 100, 30);
       clearB.setBackground(Color.blue);
       clearB.setForeground(Color.white);
       clearB.addActionListener(this);
       add(clearB);
        
+      
        //signup button
+    JLabel signupMsg = new JLabel("Don't have an account?");
+    signupMsg.setBounds(250, 390, 190, 27);
+    signupMsg.setFont(new Font("Arial",Font.PLAIN,14));
+    add(signupMsg);
+       
       signupB =new JButton("SIGN UP");
-      signupB.setBounds(300, 350, 150, 30);
+      signupB.setBounds(400, 390, 82, 27);
       signupB.setBackground(Color.blue);
       signupB.setForeground(Color.white);
       signupB.addActionListener(this);
