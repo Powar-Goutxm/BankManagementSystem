@@ -79,8 +79,12 @@ public class Login extends JFrame implements ActionListener{
       add(clear);
        
        //signup button
+      JLabel signupMsg = new JLabel("Don't have an account?");
+      signupMsg.setBounds(250, 360, 190, 27);
+      signupMsg.setFont(new Font("Arial",Font.PLAIN,14));
+      add(signupMsg);   
       signup =new JButton("SIGN UP");
-      signup.setBounds(300, 350, 150, 30);
+      signup.setBounds(400, 360, 82, 27);
       signup.setBackground(Color.blue);
       signup.setForeground(Color.white);
       signup.addActionListener(this);
