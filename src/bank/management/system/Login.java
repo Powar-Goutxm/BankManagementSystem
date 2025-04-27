@@ -120,23 +120,39 @@ public class Login extends JFrame implements ActionListener{
         if(e.getSource() == loginB){
             String username = userNameTField.getText();
             String password = new String (passwordTField.getPassword());
+            String role;
+            if(customerRB.isSelected()){
+                role = "user";
+            }else{
+                role = "admin";
+            }
             
             try{
                 connection login = new connection();
-                String query = "SELECT * FROM login WHERE Username = ? AND Password = ?";
+                String query = "SELECT * FROM login WHERE Username = ? AND Password = ? AND Role = ?";
                 
                 PreparedStatement pstmt = login.conn.prepareStatement(query);
                 pstmt.setString(1, username);
                 pstmt.setString(2, password);
+                pstmt.setString(3, role);
                 
                 ResultSet rs = pstmt.executeQuery();
                 if(rs.next()){
-                JOptionPane.showMessageDialog(null, "Login Succesfull");
-                //new Dashboard().setVisible(true);
-                dispose();
+                    String storedPass = rs.getString("Password");
+                    if(password.equals(storedPass)){
+                
+                if("admin".equals(role)){
+                new AdminDashboard().setVisible(true);
+                    }else
+                        {
+                            int customerId = rs.getInt("C_Id");
+                            new CustomerDashboard(customerId).setVisible(true);
+                        }
+                              dispose();
                 }
                 else{
                 JOptionPane.showMessageDialog(null, "Invalid Username or Password");
+                 }
                 }
             }catch(Exception ex){
                 ex.printStackTrace();
