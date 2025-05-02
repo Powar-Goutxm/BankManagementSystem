@@ -1,5 +1,6 @@
 package bank.management.system;
 
+//connector class
 import java.sql.*;
 
 public class connection {
