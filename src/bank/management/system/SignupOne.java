@@ -24,14 +24,21 @@ public class SignupOne extends JFrame implements ActionListener {
     setVisible(true);
     setLayout(null);
      setTitle("NEW ACCOUNT APPLICATION FORM - PAGE 1");
+     
+        ImageIcon i1 = new ImageIcon(ClassLoader.getSystemResource("icons/bankk.jpg"));
+        Image i2 = i1.getImage().getScaledInstance(100, 100, Image.SCALE_DEFAULT);
+        ImageIcon i3 = new ImageIcon(i2);
+        JLabel iconlabel = new JLabel(i3);
+        iconlabel.setBounds(20, 0, 100, 100);
+        add(iconlabel);
     
     //To get a random form no
     Random r = new Random();
     random = Math.abs(r.nextInt()/100000);
    
     JLabel formno = new JLabel("APPLICATION FORM NO. " + random);
-    formno.setFont(new Font("Raleway", Font.BOLD, 32));
-    formno.setBounds(99, 20, 600, 35);
+    formno.setFont(new Font("Raleway", Font.BOLD, 31));
+    formno.setBounds(120, 20, 600, 35);
     add(formno);
     
     JLabel personaldet = new JLabel("Page 1: Personal Details");
