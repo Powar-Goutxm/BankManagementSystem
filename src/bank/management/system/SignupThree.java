@@ -11,6 +11,7 @@ public class SignupThree extends JFrame implements ActionListener{
     JRadioButton r1,r2,r3,r4;
     JButton b1,b2;
     JCheckBox c1;
+    ButtonGroup accountTypGrp;
     String formno;
     
     SignupThree(String formno){
@@ -44,7 +45,7 @@ public class SignupThree extends JFrame implements ActionListener{
         r1 = new JRadioButton("Savings Account");
         r1.setFont(new Font("Raleway", Font.BOLD,15));
         r1.setBackground(Color.white);
-        r1.setBounds(50,180,150,20);
+        r1.setBounds(50,180,150,20); 
         add(r1);
         
         r2 = new JRadioButton("Fixed Account");
@@ -58,6 +59,13 @@ public class SignupThree extends JFrame implements ActionListener{
         r3.setBackground(Color.white);
         r3.setBounds(50,230,150,20);
         add(r3);
+        
+         accountTypGrp = new ButtonGroup();
+         accountTypGrp.add(r1);
+         accountTypGrp.add(r2);
+         accountTypGrp.add(r3);
+         accountTypGrp.add(r4);
+         
         
         r4 = new JRadioButton("Recurring Deposit Account");
         r4.setFont(new Font("Raleway", Font.BOLD,15));
@@ -121,6 +129,7 @@ public class SignupThree extends JFrame implements ActionListener{
         b1.setForeground(Color.WHITE);
         b1.setBounds(160, 520, 90, 30);
         b1.setFont(new Font("Raleway", Font.BOLD, 14));  
+        b1.addActionListener(this);
         add(b1);
         
         b2 = new JButton("Cancel");
@@ -128,13 +137,53 @@ public class SignupThree extends JFrame implements ActionListener{
         b2.setForeground(Color.WHITE);
         b2.setBounds(380, 520, 90, 30);
         b2.setFont(new Font("Raleway", Font.BOLD, 14));  
+        b2.addActionListener(this);
         add(b2);
     }
     
     public void actionPerformed(ActionEvent e){
-    
+    if(e.getSource() == b1){
+       String accountType = null;
+           if(r1.isSelected()){
+           accountType = "Savings Account";
+           }
+           else if(r2.isSelected()){
+           accountType = "Fixed Account";
+           }
+           else if(r3.isSelected()){
+           accountType = "Current Account";
+           }
+           else if(r4.isSelected()){
+           accountType = "Recurring Deposit Account";
+           }
+           //Generating PinNo
+           Random random = new Random();
+           String cardNo = "" + Math.abs((random.nextLong() % 90000000L) + 233569000000L);
+           
+           //Default pinNo Generated
+           String pinNo = "" + Math.abs((random.nextLong() & 9000L) + 1000L);
+           
+           try{
+               if(accountType.equals("")){
+                    JOptionPane.showMessageDialog(null, "Account Type is Required");
+               }else{
+                   connection conn = new connection();
+                   String query1 = "INSERT INTO SignupThree VALUES ('"+formno+"', '"+accountType+"', '"+cardNo+"', '"+pinNo+"')";
+                   String query2 = "INSERT INTO Login VALUES ('"+formno+"', '"+cardNo+"', '"+pinNo+"')";
+                   conn.statement.executeUpdate(query1);
+                   conn.statement.executeUpdate(query2);
+                   
+                   JOptionPane.showMessageDialog(null, "Card Number: " + cardNo + "\n Pin No: " + pinNo);
+               }
+           }catch(Exception ae){
+                ae.printStackTrace();
+           }
+           
+        }else if(e.getSource() == b2){
+            accountTypGrp.clearSelection();
+            c1.setSelected(false);
+        }
     }
-    
     
     public static void main(String[] args){
     SignupThree s3 = new SignupThree(""); 

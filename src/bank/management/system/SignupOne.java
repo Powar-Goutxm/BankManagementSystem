@@ -225,11 +225,10 @@ public class SignupOne extends JFrame implements ActionListener {
             JOptionPane.showMessageDialog(null, "Enter All the Details");
                }else{
             connection c = new connection();
-            String query = "insert into SignUp values ('"+formno+"','"+name+"','"+fname+"','"+mname+"','"+dob+"','"+gender+"','"+email+"','"+marriage+"','"+locality+"','"+state+"','"+city+"','"+pin+"')";            
+            String query = "INSERT INTO SignUp VALUES ('"+formno+"','"+name+"','"+fname+"','"+mname+"','"+dob+"','"+gender+"','"+email+"','"+marriage+"','"+locality+"','"+state+"','"+city+"','"+pin+"')";            
             c.statement.executeUpdate(query);
              setVisible(false);
             new SignupTwo(formno).setVisible(true);
-        
         }
         
        }catch(Exception ae){
