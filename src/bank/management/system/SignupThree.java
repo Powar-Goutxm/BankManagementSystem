@@ -10,7 +10,7 @@ public class SignupThree extends JFrame implements ActionListener{
     JLabel l1,l2,l3,l4,l5,l6,l7,l8,l9,l10,l11,l12;
     JRadioButton r1,r2,r3,r4;
     JButton b1,b2;
-    JCheckBox c1,c2,c3,c4,c5,c6,c7;
+    JCheckBox c1;
     String formno;
     
     SignupThree(String formno){
@@ -41,6 +41,29 @@ public class SignupThree extends JFrame implements ActionListener{
         l2.setFont(new Font("Raleway", Font.BOLD, 18));
         l2.setBounds(50,140,200,30);
         add(l2);
+        r1 = new JRadioButton("Savings Account");
+        r1.setFont(new Font("Raleway", Font.BOLD,15));
+        r1.setBackground(Color.white);
+        r1.setBounds(50,180,150,20);
+        add(r1);
+        
+        r2 = new JRadioButton("Fixed Account");
+        r2.setFont(new Font("Raleway", Font.BOLD,15));
+        r2.setBackground(Color.white);
+        r2.setBounds(250,180,150,20);
+        add(r2);
+        
+        r3 = new JRadioButton("Current Account");
+        r3.setFont(new Font("Raleway", Font.BOLD,15));
+        r3.setBackground(Color.white);
+        r3.setBounds(50,230,150,20);
+        add(r3);
+        
+        r4 = new JRadioButton("Recurring Deposit Account");
+        r4.setFont(new Font("Raleway", Font.BOLD,15));
+        r4.setBackground(Color.white);
+        r4.setBounds(250,230,300,20);
+        add(r4);
         
         l3 = new JLabel("Card Number:");
         l3.setFont(new Font("Raleway", Font.BOLD, 18));
@@ -74,23 +97,38 @@ public class SignupThree extends JFrame implements ActionListener{
         
         l9 = new JLabel("(4-digit password)");
         l9.setFont(new Font("Raleway", Font.BOLD, 12));
-         l9.setBounds(50,400,200,20);
+        l9.setBounds(50,400,200,20);
         add(l9);
-        
-        l10 = new JLabel("Services Required:");
-        l10.setFont(new Font("Raleway", Font.BOLD, 18));
-        l10.setBounds(50,450,200,30);
-        add(l10);
         
         l11 = new JLabel("Application Form No:");
         l11.setFont(new Font("Raleway", Font.BOLD, 29));
-         l11.setBounds(170, 20, 500, 35);
+        l11.setBounds(170, 20, 500, 35);
         add(l11);
         
         l12 = new JLabel(formno);
         l12.setFont(new Font("Raleway", Font.BOLD, 29));
         l12.setBounds(260, 20, 150, 35);
         add(l12);
+        
+        c1 = new JCheckBox("I hereby declare that the above entered details are correct to the best of my knowledge");
+        c1.setFont(new Font("Raleway", Font.BOLD, 13));
+        c1.setBackground(Color.WHITE);
+        c1.setBounds(50, 450, 600, 30);
+        add(c1);
+        
+        b1 = new JButton("Submit");
+        b1.setBackground(Color.BLUE);
+        b1.setForeground(Color.WHITE);
+        b1.setBounds(160, 520, 90, 30);
+        b1.setFont(new Font("Raleway", Font.BOLD, 14));  
+        add(b1);
+        
+        b2 = new JButton("Cancel");
+        b2.setBackground(Color.BLUE);
+        b2.setForeground(Color.WHITE);
+        b2.setBounds(380, 520, 90, 30);
+        b2.setFont(new Font("Raleway", Font.BOLD, 14));  
+        add(b2);
     }
     
     public void actionPerformed(ActionEvent e){
