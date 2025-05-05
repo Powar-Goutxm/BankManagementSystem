@@ -1,7 +1,6 @@
 # Ignore NetBeans-specific files
 nbproject/private/
 nbproject/private.xml
-nbproject/build-impl.xml
 nbproject/genfiles.properties
 
 
