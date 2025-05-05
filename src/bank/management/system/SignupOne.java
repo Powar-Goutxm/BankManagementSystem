@@ -10,7 +10,7 @@ public class SignupOne extends JFrame implements ActionListener {
      int random;
      JTextField nameTField,fnameTField,mnameTField,emailTField;
      JTextField localityTField,cityTField, stateTField,pcodeTField;
-     JButton next;
+     JButton next,previous;
      JRadioButton m,f,other,married,unmarried,pnts;
      JDateChooser datechooser;
      
@@ -179,13 +179,23 @@ public class SignupOne extends JFrame implements ActionListener {
     pcodeTField.setBounds(230, 580, 350, 25);
     add(pcodeTField);
     
+    previous = new JButton("Previous");
+    previous.setBackground(Color.BLUE);
+    previous.setForeground(Color.WHITE);
+    previous.setBounds(230, 620, 100, 30);
+    previous.setFont(new Font("Raleway", Font.BOLD, 14));
+    previous.addActionListener(this);
+    add(previous);
+    
     next = new JButton("Next");
     next.setBackground(Color.blue);
     next.setForeground(Color.white);
-    next.setBounds(500, 620, 80, 30);
+    next.setBounds(480, 620, 100, 30);
     next.setFont(new Font("Raleway",Font.BOLD, 14));
     next.addActionListener(this);
     add(next);
+    
+    
     }
     
     @Override
@@ -220,16 +230,21 @@ public class SignupOne extends JFrame implements ActionListener {
            marriage = "Prefer Not to Say";
         }
        try{
-        if(name.equals("") || fname.equals("") || mname.equals("") || dob.equals("") || email.equals("")
-                || locality.equals("") || state.equals("") || city.equals("") || pin.equals("")){
+        if((e.getSource() == next) && (name.equals("") || fname.equals("") || mname.equals("") || dob.equals("") || email.equals("")
+                || locality.equals("") || state.equals("") || city.equals("") || pin.equals(""))){
             JOptionPane.showMessageDialog(null, "Enter All the Details");
-               }else{
+               }
+            else if(e.getSource() == previous){
+            setVisible(false);
+            new Login().setVisible(true);
+               }  
+            else{
             connection c = new connection();
             String query = "INSERT INTO SignUp VALUES ('"+formno+"','"+name+"','"+fname+"','"+mname+"','"+dob+"','"+gender+"','"+email+"','"+marriage+"','"+locality+"','"+state+"','"+city+"','"+pin+"')";            
             c.statement.executeUpdate(query);
              setVisible(false);
             new SignupTwo(formno).setVisible(true);
-        }
+            }
         
        }catch(Exception ae){
        System.out.println(ae);

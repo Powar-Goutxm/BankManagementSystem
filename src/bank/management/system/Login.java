@@ -23,6 +23,7 @@ public class Login extends JFrame implements ActionListener{
     setVisible(true); 
     setDefaultCloseOperation(EXIT_ON_CLOSE);
     setTitle("Bank");
+    getContentPane().setBackground(Color.white);
     
     //Setting the Icon
     ImageIcon i1 = new ImageIcon(ClassLoader.getSystemResource("icons/bankk.jpg"));
@@ -33,7 +34,6 @@ public class Login extends JFrame implements ActionListener{
    
     label.setBounds(70, 10, 100, 100);
      setLayout(null);
-     getContentPane().setBackground(Color.white);
    
         //setting headline
     JLabel text = new JLabel("Welcome to the Bank ");
@@ -53,7 +53,7 @@ public class Login extends JFrame implements ActionListener{
     
      //Pin no
     JLabel pin = new JLabel("PIN No: "); 
-    pin.setBounds(120, 220, 400, 40);
+    pin.setBounds(120, 220, 400, 30);
     pin.setFont(new Font("Osward", Font.BOLD,25));
     add(pin);
     pinTField = new JPasswordField();
@@ -84,7 +84,7 @@ public class Login extends JFrame implements ActionListener{
       signupMsg.setFont(new Font("Arial",Font.PLAIN,14));
       add(signupMsg);   
       signup =new JButton("SIGN UP");
-      signup.setBounds(400, 360, 82, 27);
+      signup.setBounds(405, 360, 82, 27);
       signup.setBackground(Color.blue);
       signup.setForeground(Color.white);
       signup.addActionListener(this);

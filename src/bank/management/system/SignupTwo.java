@@ -8,10 +8,11 @@ import java.awt.event.*;
 //implements ActionListener
 public class SignupTwo extends JFrame implements ActionListener  {
     //Global declaration
-     JButton next;
+     JButton next,previous;
      JRadioButton ExYes,ExNo;
      JComboBox Rel,Catg,Incm,EduQual,Occup;
      String formno;
+     ButtonGroup ExistingGrp;
     //constructor
     SignupTwo(String formno){
         this.formno = formno;
@@ -32,7 +33,7 @@ public class SignupTwo extends JFrame implements ActionListener  {
         
     JLabel l2 = new JLabel(formno);
     l2.setFont(new Font("Raleway", Font.BOLD, 29));
-    l2.setBounds(260, 20, 150, 35);
+    l2.setBounds(670, 25, 150, 35);
     add(l2);
         
     JLabel additionalDet = new JLabel("Page 2: Additional Details");
@@ -120,15 +121,22 @@ public class SignupTwo extends JFrame implements ActionListener  {
     ExNo.setBounds(325, 460, 80, 30);
     ExNo.setBackground(Color.white);
     add(ExNo);
-    ButtonGroup ExistingGrp = new ButtonGroup();
+    ExistingGrp = new ButtonGroup();
     ExistingGrp.add(ExYes);
     ExistingGrp.add(ExNo);
     
-       
+    previous = new JButton("Previous");
+    previous.setBackground(Color.BLUE);
+    previous.setForeground(Color.WHITE);
+    previous.setBounds(230, 550, 100, 30);
+    previous.setFont(new Font("Raleway", Font.BOLD, 14));
+    previous.addActionListener(this);
+    add(previous);
+    
     next = new JButton("Next");
     next.setBackground(Color.blue);
     next.setForeground(Color.white);
-    next.setBounds(500, 590, 80, 30);
+    next.setBounds(460, 550, 100, 30);
     next.setFont(new Font("Raleway",Font.BOLD, 14));
     next.addActionListener(this);
     add(next);
@@ -151,12 +159,24 @@ public class SignupTwo extends JFrame implements ActionListener  {
        }
     
        try{
-            connection c = new connection();
+           
+           
+           if((e.getSource() == next) && (religion.equals("") || category.equals("") || income.equals("") || education.equals("")
+           || occupation.equals("")  || ExistingGrp.getSelection() == null)){
+            JOptionPane.showMessageDialog(null, "Enter All the Details");
+               }
+            else if(e.getSource() == previous){
+            setVisible(false);
+            new SignupOne().setVisible(true);
+               }  
+            else{
+                connection c = new connection();
             String query = "INSERT INTO SignUpTwo VALUES ('"+formno+"','"+religion+"','"+category+"','"+income+"','"+education+"','"+occupation+"','"+existAccount+"')";            
             c.statement.executeUpdate(query);
             setVisible(false);
             new SignupThree(formno).setVisible(true);
-            
+            }
+           
        }catch(Exception ae){
        System.out.println(ae);
        }
