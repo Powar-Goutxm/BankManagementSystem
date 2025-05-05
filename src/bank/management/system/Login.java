@@ -6,12 +6,12 @@ package bank.management.system;
 import java.awt.*;
 import javax.swing.*;
 import java.awt.event.*;
-//Bank Management System 
+import java.sql.*;
 
  //Login class 
 public class Login extends JFrame implements ActionListener{
     //Global declaration
-    JButton signin,clear,signup;
+    JButton login,clear,signup;
     JTextField cardTField;
     JPasswordField pinTField;
     
@@ -58,17 +58,16 @@ public class Login extends JFrame implements ActionListener{
     add(pin);
     pinTField = new JPasswordField();
     pinTField.setFont(new Font("Arial",Font.BOLD,15));
-    cardTField.setBounds(250, 150, 250, 30);
-    pinTField.setBounds(250, 220, 250, 40);
+    pinTField.setBounds(250, 220, 250, 30);
     add(pinTField);
      
-     //signin button
-       signin =new JButton("SIGN IN");
-       signin.setBounds(250, 300, 100, 30);
-       signin.setBackground(Color.blue);
-       signin.setForeground(Color.white);
-       signin.addActionListener(this);
-       add(signin);
+     //logininbutton
+       login =new JButton("SIGN IN");
+       login.setBounds(250, 300, 100, 30);
+       login.setBackground(Color.blue);
+       login.setForeground(Color.white);
+       login.addActionListener(this);
+       add(login);
        
        //Clear button
       clear =new JButton("CLEAR");
@@ -92,8 +91,27 @@ public class Login extends JFrame implements ActionListener{
     }
     //Button working
     public void actionPerformed(ActionEvent e){
-        if(e.getSource() == signin){
+        if(e.getSource() == login){
+           connection conn = new connection();
+           String cardnumber = cardTField.getText();
+           String pinnumber = pinTField.getText();
            
+           String query = "SELECT * FROM Login WHERE Card_No = '"+cardnumber+"' AND Pin_No = '"+pinnumber+"'";
+           try{
+               ResultSet rs = conn.statement.executeQuery(query);
+               if(rs.next()){
+                setVisible(false);
+                new Transactions().setVisible(true);
+               }else{
+                     JOptionPane.showMessageDialog(null, "Incorrect Card Number or pin");
+             }
+               
+           }catch(Exception ae){
+               ae.printStackTrace();
+           }
+           
+            
+            
         }else if(e.getSource() == clear){
             cardTField.setText("");
             pinTField.setText("");

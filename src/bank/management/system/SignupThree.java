@@ -7,7 +7,7 @@ import java.sql.*;
 import java.util.*;
 
 public class SignupThree extends JFrame implements ActionListener{
-    JLabel l1,l2,l3,l4,l5,l6,l7,l8,l9,l10,l11,l12;
+    JLabel l1,l2,l3,l4,l5,l6,l7,l8,l9,l10,l11,l12,text;
     JRadioButton r1,r2,r3,r4;
     JButton b1,b2;
     JCheckBox c1;
@@ -73,39 +73,45 @@ public class SignupThree extends JFrame implements ActionListener{
         r4.setBounds(250,230,300,20);
         add(r4);
         
+        text = new JLabel("The Following Will Be Generated For Your Account:");
+        text.setFont(new Font("Raleway", Font.BOLD, 14));
+        text.setBackground(Color.WHITE);
+        text.setBounds(50, 282, 600, 30);
+        add(text);
+        
         l3 = new JLabel("Card Number:");
         l3.setFont(new Font("Raleway", Font.BOLD, 18));
-         l3.setBounds(50,300,200,30);
+        l3.setBounds(50,310,200,30);
         add(l3);
         
         l4 = new JLabel("XXXX-XXXX-XXXX-4184");
         l4.setFont(new Font("Raleway", Font.BOLD, 18));
-        l4.setBounds(280,300,250,30);
+        l4.setBounds(280,310,250,30);
         add(l4);
         
         l5 = new JLabel("(Your 16-digit Card number)");
         l5.setFont(new Font("Raleway", Font.BOLD, 12));
-        l5.setBounds(50,330,200,20);
+        l5.setBounds(50,340,200,20);
         add(l5);
         
         l6 = new JLabel("It would appear on ATM Card/Cheque Book and Statements");
         l6.setFont(new Font("Raleway", Font.BOLD, 12));
-        l6.setBounds(280,330,500,20);
+        l6.setBounds(280,340,500,20);
         add(l6);
         
         l7 = new JLabel("PIN:");
         l7.setFont(new Font("Raleway", Font.BOLD, 18));
-        l7.setBounds(50,370,200,30);
+        l7.setBounds(50,380,200,30);
         add(l7);
         
         l8 = new JLabel("XXXX");
         l8.setFont(new Font("Raleway", Font.BOLD, 18));
-        l8.setBounds(280,370,200,30);
+        l8.setBounds(280,380,200,30);
         add(l8);
         
         l9 = new JLabel("(4-digit password)");
         l9.setFont(new Font("Raleway", Font.BOLD, 12));
-        l9.setBounds(50,400,200,20);
+        l9.setBounds(50,410,200,20);
         add(l9);
         
         l11 = new JLabel("Application Form No:");
@@ -115,7 +121,7 @@ public class SignupThree extends JFrame implements ActionListener{
         
         l12 = new JLabel(formno);
         l12.setFont(new Font("Raleway", Font.BOLD, 29));
-        l12.setBounds(260, 20, 150, 35);
+        l12.setBounds(700, 20, 150, 35);
         add(l12);
         
         c1 = new JCheckBox("I hereby declare that the above entered details are correct to the best of my knowledge");
@@ -174,6 +180,9 @@ public class SignupThree extends JFrame implements ActionListener{
                    conn.statement.executeUpdate(query2);
                    
                    JOptionPane.showMessageDialog(null, "Card Number: " + cardNo + "\n Pin No: " + pinNo);
+                   
+                   setVisible(false);
+                   new Login().setVisible(true);
                }
            }catch(Exception ae){
                 ae.printStackTrace();
