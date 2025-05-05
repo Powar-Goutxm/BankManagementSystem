@@ -8,9 +8,9 @@ import java.util.*;
 
 public class Transactions extends JFrame implements ActionListener{
     JButton Deposit,Withdrawal,Mstatement,Pinchange,Balance,Exit;
-    
-    Transactions(){
-        
+    String pinnumber;
+    Transactions(String pinnumber){
+        this.pinnumber = pinnumber;
         setSize(900, 900);
         setLocation(300,0);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -64,11 +64,13 @@ public class Transactions extends JFrame implements ActionListener{
     }
     
     public void actionPerformed(ActionEvent e){
-    
+        if(e.getSource() == Exit){
+        System.exit(0);
+        }
     }
     
     
     public static void main (String[] args){
-        Transactions trans = new Transactions();
+        Transactions trans = new Transactions("");
     }
 }
