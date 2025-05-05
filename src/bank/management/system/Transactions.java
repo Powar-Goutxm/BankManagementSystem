@@ -6,8 +6,7 @@ import javax.swing.*;
 import java.sql.*;
 import java.util.*;
 
-public class Transactions extends JFrame implements ActionListener{
-    JButton Deposit,Withdrawal,Mstatement,Pinchange,Balance,Exit;
+public class Transactions extends JFrame {
     
     Transactions(){
         
@@ -16,6 +15,7 @@ public class Transactions extends JFrame implements ActionListener{
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setTitle("Transaction");
         getContentPane().setBackground(Color.WHITE);
+        //setUndecorated(true);
         setVisible(true);
         
         ImageIcon i1 = new ImageIcon(ClassLoader.getSystemResource("icons/3923.jpg"));
@@ -31,42 +31,8 @@ public class Transactions extends JFrame implements ActionListener{
         text.setForeground(Color.WHITE);
         imagelabel.add(text);
        
-        Deposit = new JButton("Cash Deposit");
-        Deposit.setBounds(170,375,130,30);
-        Deposit.addActionListener(this);
-        imagelabel.add(Deposit);
-        
-        Withdrawal = new JButton("Cash Withdrawal");
-        Withdrawal.setBounds(355,375,133,30);
-        Withdrawal.addActionListener(this);
-        imagelabel.add(Withdrawal);
-        
-        Mstatement = new JButton("Mini Statement");
-        Mstatement.addActionListener(this);
-        Mstatement.setBounds(170,413,130,30);
-        imagelabel.add(Mstatement);
-        
-        Pinchange = new JButton("Pin Change");
-        Pinchange.addActionListener(this);
-        Pinchange.setBounds(355,413,133,30);
-        imagelabel.add(Pinchange);
-        
-        Balance = new JButton("Balance Enquiry");
-        Balance.setBounds(170,450,130,30);
-        Balance.addActionListener(this);
-        imagelabel.add(Balance);
-        
-        Exit = new JButton("Exit");
-        Exit.setBounds(355,450,133,30);
-        Exit.addActionListener(this);
-        imagelabel.add(Exit);
         
     }
-    
-    public void actionPerformed(ActionEvent e){
-    
-    }
-    
     
     public static void main (String[] args){
         Transactions trans = new Transactions();
