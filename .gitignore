@@ -1,6 +1,8 @@
 # Ignore NetBeans-specific files
 nbproject/private/
 nbproject/private.xml
+nbproject/genfiles.properties
+
 
 # Ignore class files and build outputs
 *.class
