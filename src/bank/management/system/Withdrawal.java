@@ -4,6 +4,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.*;
+import java.sql.*;
+
 import static javax.swing.WindowConstants.EXIT_ON_CLOSE;
 
 public class Withdrawal extends JFrame implements ActionListener{
@@ -52,26 +54,45 @@ public class Withdrawal extends JFrame implements ActionListener{
     }
     
     public void actionPerformed(ActionEvent e){
+        double balance = 0.00;
             if(e.getSource() == withdraw){
                 String DepAmt = amount.getText();
-                Date date = new Date();
+                double depositAmount = Double.parseDouble(DepAmt);
+                java.util.Date date = new java.util.Date();
                 
-                    if(DepAmt.equals("")){
+                
+                if(DepAmt.equals("")){
                         JOptionPane.showMessageDialog(null,"Amount Field Empty! Please Enter the amount");
-                        setVisible(false);
-                        new Transactions(pinnumber).setVisible(true);
                         
                     }else{
-                            try{
+                            try{  
                                   connection conn = new connection();
-                                  String query = "INSERT INTO Transaction VALUES ('"+pinnumber+"', '"+date+"', 'Withdraw', '"+DepAmt+",)";
-                                  conn.statement.executeUpdate(query);
-                                  JOptionPane.showMessageDialog(null, "Rs " +DepAmt+ ".00"+ " Deposited Succesfully");
+                                  
+                                  String balanceQuery = "SELECT Balance FROM Transaction WHERE Pin_No = '" + pinnumber + "' ORDER BY Trans_Date DESC LIMIT 1";
+                                  ResultSet rs = conn.statement.executeQuery(balanceQuery);
+            
+                                   if(rs.next()) {
+                                     balance = Double.parseDouble(rs.getString("Balance"));
+                                     }                 
+                                        
+                                        
+                                        if(depositAmount <= balance){
+                                            balance -= depositAmount;
+                                            String query = "INSERT INTO Transaction VALUES ('"+pinnumber+"', '"+date+"', 'Withdraw', '"+DepAmt+"','"+balance+"')";
+                                            conn.statement.executeUpdate(query);
+                                            JOptionPane.showMessageDialog(null, "Rs " +DepAmt+ ".00"+ " Withdraw Succesfull");
+                                        
+                                        }else{
+                                            JOptionPane.showMessageDialog(null, "Insufficeient Balance! Enter Again");
+                                             }
+                                        
                             }catch(Exception ae){
                                 ae.printStackTrace();
                             }
-                        
+                        setVisible(false);
+                        new Transactions(pinnumber).setVisible(true);
                     }
+                
                     
             }else if(e.getSource() == back){
                 setVisible(false);
