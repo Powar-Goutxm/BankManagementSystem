@@ -4,12 +4,12 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.*;
+import java.sql.*;
 
 public class Deposit extends JFrame implements ActionListener{
     JButton deposit,back;
     String pinnumber;
     JTextField amount;
-    double balance = 0.00;
     
     Deposit(String pinnumber){
         this.pinnumber = pinnumber;
@@ -52,10 +52,10 @@ public class Deposit extends JFrame implements ActionListener{
     }
     
     public void actionPerformed(ActionEvent e){
+        double balance = 0.00;
             if(e.getSource() == deposit){
                 String DepAmt = amount.getText();
-                Date date = new Date();
-                balance += Integer.parseInt(DepAmt);
+                java.util.Date date = new java.util.Date();
                 
                     if(DepAmt.equals("")){
                         JOptionPane.showMessageDialog(null,"Amount Field Empty! Please Enter the amount");
@@ -63,6 +63,16 @@ public class Deposit extends JFrame implements ActionListener{
                     }else{
                             try{  
                                   connection conn = new connection();
+                                  
+                                  
+                                  String balanceQuery = "SELECT Balance FROM Transaction WHERE Pin_No = '" + pinnumber + "' ORDER BY Trans_Date DESC LIMIT 1";
+                                  ResultSet rs = conn.statement.executeQuery(balanceQuery);
+            
+                                   if(rs.next()) {
+                                     balance = Double.parseDouble(rs.getString("Balance"));
+                                     }
+                                     balance += Double.parseDouble(DepAmt);
+                                  
                                   String query = "INSERT INTO Transaction VALUES ('"+pinnumber+"', '"+date+"', 'Deposit', '"+DepAmt+"','"+balance+"')";
                                   conn.statement.executeUpdate(query);
                                   JOptionPane.showMessageDialog(null, "Rs " +DepAmt+ ".00"+ " Deposited Succesfully");
