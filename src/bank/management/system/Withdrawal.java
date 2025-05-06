@@ -3,7 +3,6 @@ package bank.management.system;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.util.*;
 import java.sql.*;
 
 import static javax.swing.WindowConstants.EXIT_ON_CLOSE;
