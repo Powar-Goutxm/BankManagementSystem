@@ -64,11 +64,20 @@ public class Transactions extends JFrame implements ActionListener{
     }
     
     public void actionPerformed(ActionEvent e){
+        
         if(e.getSource() == Exit){
         System.exit(0);
+        
+        }else if(e.getSource() == Deposit){
+        setVisible(false);
+        new Deposit(pinnumber).setVisible(true);
+        
+        }else if(e.getSource() == Withdrawal){
+            setVisible(false);
+            new Withdrawal(pinnumber).setVisible(true);
         }
+        
     }
-    
     
     public static void main (String[] args){
         Transactions trans = new Transactions("");

@@ -10,7 +10,7 @@ public class SignupOne extends JFrame implements ActionListener {
      int random;
      JTextField nameTField,fnameTField,mnameTField,emailTField;
      JTextField localityTField,cityTField, stateTField,pcodeTField;
-     JButton next,previous;
+     JButton next,back;
      JRadioButton m,f,other,married,unmarried,pnts;
      JDateChooser datechooser;
      
@@ -174,18 +174,19 @@ public class SignupOne extends JFrame implements ActionListener {
     pcode.setFont(new Font("Raleway", Font.BOLD, 17));
     pcode.setBounds(100, 580, 120, 25);
     add(pcode);
+    
     pcodeTField = new JTextField(); 
     pcodeTField.setFont(new Font("Raleway",Font.BOLD,14));
     pcodeTField.setBounds(230, 580, 350, 25);
     add(pcodeTField);
     
-    previous = new JButton("Previous");
-    previous.setBackground(Color.BLUE);
-    previous.setForeground(Color.WHITE);
-    previous.setBounds(230, 620, 100, 30);
-    previous.setFont(new Font("Raleway", Font.BOLD, 14));
-    previous.addActionListener(this);
-    add(previous);
+    back = new JButton("Back");
+    back.setBackground(Color.BLUE);
+    back.setForeground(Color.WHITE);
+    back.setBounds(230, 620, 100, 30);
+    back.setFont(new Font("Raleway", Font.BOLD, 14));
+    back.addActionListener(this);
+    add(back);
     
     next = new JButton("Next");
     next.setBackground(Color.blue);
@@ -234,7 +235,7 @@ public class SignupOne extends JFrame implements ActionListener {
                 || locality.equals("") || state.equals("") || city.equals("") || pin.equals(""))){
             JOptionPane.showMessageDialog(null, "Enter All the Details");
                }
-            else if(e.getSource() == previous){
+            else if(e.getSource() == back){
             setVisible(false);
             new Login().setVisible(true);
                }  
