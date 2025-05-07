@@ -8,11 +8,12 @@ import java.awt.event.*;
 public class PinChange extends JFrame implements ActionListener{
     JTextField pin;
     JPasswordField repin;
-    JButton  change, back;
-    String pinnumber;
+    JButton  change, exit;
+    String cardnumber,pinnumber;
 
     
-    PinChange(String pinnumber){
+    PinChange(String cardnumber,String pinnumber){
+        this.cardnumber = cardnumber;
         this.pinnumber = pinnumber;
         
         setSize(900,900);
@@ -41,7 +42,7 @@ public class PinChange extends JFrame implements ActionListener{
             image.add(pintext);
             
             pin = new JTextField();
-            pin.setFont(new Font ("Raleway" , Font.BOLD,22));
+            pin.setFont(new Font ("Raleway" , Font.BOLD, 20));
             pin.setBounds(330,360,180,25);
             image.add(pin);
 
@@ -52,7 +53,7 @@ public class PinChange extends JFrame implements ActionListener{
             image.add(repintext);
 
             repin = new JPasswordField();
-            repin.setFont(new Font ("Raleway" , Font.BOLD,23));
+            repin.setFont(new Font ("Raleway" , Font.BOLD, 20));
             repin.setBounds(330,400,180,25);
             image.add(repin);
             
@@ -61,17 +62,48 @@ public class PinChange extends JFrame implements ActionListener{
             change.addActionListener(this);
             image.add(change);
         
-            back = new JButton("Back");
-            back.setBounds(370,452,135,30);
-            back.addActionListener(this);
-            image.add(back);
+            exit = new JButton("Exit");
+            exit.setBounds(370,452,135,30);
+            exit.addActionListener(this);
+            image.add(exit);
     }
     
      public void actionPerformed(ActionEvent e){
-     
+        if(e.getSource() ==  change){
+             try{
+             String npin = pin.getText();
+             String rpin = repin.getText();
+             
+             if(!npin.equals(rpin)){
+                 JOptionPane.showMessageDialog(null, "Pins Do Not Match! Please Re-eneter Your Pin");
+                 return;
+             }
+             
+             if(npin.equals("") || repin.equals("")){
+                 JOptionPane.showMessageDialog(null, "Field Empty! Please Enter Pin");
+                 return;
+             }
+            
+                connection conn = new connection();
+                String query1 = "Update Transaction SET Pin_No = '"+npin +"' WHERE Card_No = '"+cardnumber+"'";
+                String query2 = "Update Login SET Pin_No = '"+npin +"' WHERE Card_No = '"+cardnumber+"'";
+                String query3 = "Update SignupThree SET Pin_No = '"+npin +"' WHERE Card_No = '"+cardnumber+"'";
+                conn.statement.executeUpdate(query1);
+                conn.statement.executeUpdate(query2);
+                conn.statement.executeUpdate(query3);
+             
+                JOptionPane.showMessageDialog(null, "Pin Changed Succesfully");
+                
+         }catch(Exception ae){
+             ae.printStackTrace();
+            }
+        }else{
+            setVisible(false);
+            new Login ().setVisible(true);
+        }
      }
     
     public static void main(String[] args){
-        new PinChange("").setVisible(true);
+        new PinChange("","").setVisible(true);
     }
 }

@@ -9,11 +9,12 @@ import static javax.swing.WindowConstants.EXIT_ON_CLOSE;
 
 public class Withdrawal extends JFrame implements ActionListener{
     JButton withdraw,back;
-    String pinnumber;
+    String cardnumber,pinnumber;
     JTextField amount;
     
-    Withdrawal(String pinnumber){
+    Withdrawal(String cardnumber,String pinnumber){
         this.pinnumber = pinnumber;
+        this.cardnumber = cardnumber;
         setSize(900,900);
         setVisible(true);
         setLocation(300,0);
@@ -48,8 +49,6 @@ public class Withdrawal extends JFrame implements ActionListener{
         back.setBounds(370,452,135,30);
         back.addActionListener(this);
         image.add(back);
-        
-        
     }
     
     public void actionPerformed(ActionEvent e){
@@ -67,7 +66,7 @@ public class Withdrawal extends JFrame implements ActionListener{
                             try{  
                                   connection conn = new connection();
                                   
-                                  String balanceQuery = "SELECT Balance FROM Transaction WHERE Pin_No = '" + pinnumber + "' ORDER BY Trans_Date DESC LIMIT 1";
+                                  String balanceQuery = "SELECT Balance FROM Transaction WHERE Card_No = '" + cardnumber + "' ORDER BY Trans_Date DESC LIMIT 1";
                                   ResultSet rs = conn.statement.executeQuery(balanceQuery);
             
                                    if(rs.next()) {
@@ -77,7 +76,7 @@ public class Withdrawal extends JFrame implements ActionListener{
                                         
                                         if(depositAmount <= balance){
                                             balance -= depositAmount;
-                                            String query = "INSERT INTO Transaction VALUES ('"+pinnumber+"', '"+date+"', 'Withdraw', '"+DepAmt+"','"+balance+"')";
+                                            String query = "INSERT INTO Transaction VALUES ('"+cardnumber+"','"+pinnumber+"', '"+date+"', 'Withdraw', '"+DepAmt+"','"+balance+"')";
                                             conn.statement.executeUpdate(query);
                                             JOptionPane.showMessageDialog(null, "Rs " +DepAmt+ ".00"+ " Withdraw Succesfull");
                                         
@@ -89,17 +88,17 @@ public class Withdrawal extends JFrame implements ActionListener{
                                 ae.printStackTrace();
                             }
                         setVisible(false);
-                        new Transactions(pinnumber).setVisible(true);
+                        new Transactions(cardnumber,pinnumber).setVisible(true);
                     }
                 
                     
             }else if(e.getSource() == back){
                 setVisible(false);
-                new Transactions(pinnumber).setVisible(true);
+                new Transactions(cardnumber,pinnumber).setVisible(true);
             }
         
         }
     public static void main(String[] args){
-        new Withdrawal("");
+        new Withdrawal("","");
     }
 }

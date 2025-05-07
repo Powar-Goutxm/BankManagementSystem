@@ -8,9 +8,11 @@ import java.util.*;
 
 public class Transactions extends JFrame implements ActionListener{
     JButton Deposit,Withdrawal,Mstatement,Pinchange,Balance,Exit;
-    String pinnumber;
-    Transactions(String pinnumber){
+    String cardnumber,pinnumber;
+    
+    Transactions(String cardnumber ,String pinnumber){
         this.pinnumber = pinnumber;
+        this.cardnumber = cardnumber;
         setSize(900, 900);
         setLocation(300,0);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -70,20 +72,23 @@ public class Transactions extends JFrame implements ActionListener{
         
         }else if(e.getSource() == Deposit){
         setVisible(false);
-        new Deposit(pinnumber).setVisible(true);
+        new Deposit(cardnumber,pinnumber).setVisible(true);
         
         }else if(e.getSource() == Withdrawal){
             setVisible(false);
-            new Withdrawal(pinnumber).setVisible(true);
+            new Withdrawal(cardnumber,pinnumber).setVisible(true);
             
         }else if(e.getSource() == Balance){
             setVisible(false);
-            new BalanceEnquiry(pinnumber).setVisible(true);
+            new BalanceEnquiry(cardnumber,pinnumber).setVisible(true);
+            
+        }else if(e.getSource() == Pinchange){
+            setVisible(false);
+            new PinChange(cardnumber,pinnumber).setVisible(true);
         }
-        
     }
     
     public static void main (String[] args){
-        Transactions trans = new Transactions("");
+        Transactions trans = new Transactions("" ,"");
     }
 }

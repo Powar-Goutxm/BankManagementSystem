@@ -7,8 +7,9 @@ import java.sql.*;
 
 public class BalanceEnquiry extends JFrame implements ActionListener{
     JButton back;
-    String pinnumber;
-    BalanceEnquiry(String pinnumber){   // parameterised constructor
+    String cardnumber,pinnumber;
+    BalanceEnquiry(String cardnumber,String pinnumber){   // parameterised constructor
+        this.cardnumber = cardnumber ;
         this.pinnumber = pinnumber ;
         setLayout(null);
         setSize(900,900);                                
@@ -32,7 +33,7 @@ public class BalanceEnquiry extends JFrame implements ActionListener{
         Double balance = 0.00;
         
         try {
-           String balanceQuery = "SELECT Balance FROM Transaction WHERE Pin_No = '" + pinnumber + "' ORDER BY Trans_Date DESC LIMIT 1";
+           String balanceQuery = "SELECT Balance FROM Transaction WHERE Card_No = '" + cardnumber + "' ORDER BY Trans_Date DESC LIMIT 1";
                                   ResultSet rs = conn.statement.executeQuery(balanceQuery);
             
                                    if(rs.next()) {
@@ -44,16 +45,16 @@ public class BalanceEnquiry extends JFrame implements ActionListener{
         
        JLabel text = new JLabel("Your Current Account Balance Is Rs " + balance);
        text.setForeground(Color.WHITE);
-       text.setFont(new Font("System", Font.BOLD, 18));
+       text.setFont(new Font("System", Font.BOLD, 17));
        text.setBounds(162,385,400,30);
        image.add(text);  
     }
     public void actionPerformed(ActionEvent ae){
         setVisible(false);
-        new Transactions(pinnumber).setVisible(true);
+        new Transactions(cardnumber,pinnumber).setVisible(true);
     }
     public static void main (String agrs[]){
-        new BalanceEnquiry(" ");
+        new BalanceEnquiry("", "");
         
     }
     
