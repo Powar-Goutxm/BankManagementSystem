@@ -1,11 +1,28 @@
-![Java](https://img.shields.io/badge/Language-Java-blue)
-![GitHub Repo Size](https://img.shields.io/github/repo-size/Powar-Goutxm/BankManagementSystem)
-![GitHub Last Commit](https://img.shields.io/github/last-commit/Powar-Goutxm/BankManagementSystem)
-![License](https://img.shields.io/badge/License-Open--Source-green)
+<p align="center">
+  <a href="https://www.java.com/">
+    <img src="https://img.shields.io/badge/Language-Java-orange?style=flat&logo=java&logoColor=white" alt="Java">
+  </a>
+  <a href="https://github.com/Powar-Goutxm/BankManagementSystem">
+    <img src="https://img.shields.io/github/repo-size/Powar-Goutxm/BankManagementSystem?style=flat&color=blueviolet" alt="Repo Size">
+  </a>
+  <a href="https://github.com/Powar-Goutxm/BankManagementSystem/commits/main">
+    <img src="https://img.shields.io/github/last-commit/Powar-Goutxm/BankManagementSystem?style=flat&color=success" alt="Last Commit">
+  </a>
+  <a href="#">
+    <img src="https://img.shields.io/badge/License-Open--Source-brightgreen?style=flat&logo=opensourceinitiative&logoColor=white" alt="License">
+  </a>
+</p>
 
-# 🏦 Bank Management System
+<h1 align="center">🏦 Bank Management System</h1>
 
-A simple Bank Management System made using **Java Swing** and **MySQL**, allowing users to create accounts, deposit money, withdraw funds, and view transaction history.
+<p align="center">
+  A simple, intuitive <b>Bank Management System</b> built using <b>Java Swing</b> and <b>MySQL</b>. <br>
+  Manage user accounts, deposit and withdraw funds, check balances, and review transaction history — all through a clean desktop GUI.
+</p>
+
+<hr>
+
+
 
 ---
 
@@ -63,29 +80,27 @@ A simple Bank Management System made using **Java Swing** and **MySQL**, allowin
 ---
 
 ## 📂 Project Structure
-BankManagementSystem/
-│
-├── dist/
-│
-├── nbproject/
-│
-├── src/
-│   ├── 🔌 connection.java       → Handles database connections
-│   ├── 🔐 Login.java            → User login screen
-│   ├── 💰 Deposit.java          → Deposit money functionality
-│   ├── 💸 Withdraw.java         → Withdraw money functionality
-│   ├── 📊 BalanceEnquiry.java   → Check account balance
-│   ├── 📜 MiniStatement.java    → Shows recent transaction history
-│   ├── 📝 Signup.java           → New account signup form
-│   ├── 🔄 Transaction.java      → Transaction record handler (if you have this)
-│   └── ... (other Java files)
-│
-├── 📄 .gitignore
-├── 📑 BMS Queries.sql          → Example SQL queries
-├── 🗄️ BMS Schema.sql            → Database schema definition
-├── ⚙️ build.xml
-├── 📜 manifest.mf
-└── 📖 README.md
+
+BankManagementSystem/<br>
+├── 📁 dist/<br>
+├── 📁 nbproject/<br>
+├── 📁 src/<br>
+│   ├── 🔌 connection.java → Handles database connections<br>
+│   ├── 🔐 Login.java → User login screen<br>
+│   ├── 💰 Deposit.java → Deposit money functionality<br>
+│   ├── 💸 Withdraw.java → Withdraw money functionality<br>
+│   ├── 📊 BalanceEnquiry.java → Check account balance<br>
+│   ├── 📝 MiniStatement.java → Shows recent transaction history<br>
+│   ├── 🆕 Signup.java → New account signup form<br>
+│   ├── 📄 Transaction.java → Transaction record handler <br>
+│   └── ... (other Java files)<br>
+├── 📄 .gitignore<br>
+├── 📜 BMS Queries.sql → Example SQL queries<br>
+├── 🗂️ BMS Schema.sql → Database schema definition<br>
+├── 🏗️ build.xml<br>
+├── 📄 manifest.mf<br>
+└── 📖 README.md<br>
+
 
 
 ---
@@ -131,6 +146,18 @@ BankManagementSystem/
 
 ---
 
-### 🤝 Connect with Me
-- GitHub: Powar-Goutxm
-- LinkedIn: www.linkedin.com/in/goutam-powar
+<hr>
+
+<!-- Connect with Me -->
+<h3 align="center">🤝 Connect with Me</h3>
+
+<p align="center">
+  <a href="https://github.com/Powar-Goutxm" target="_blank">
+    <img src="https://img.shields.io/badge/GitHub-Powar--Goutxm-181717?style=flat&logo=github" alt="GitHub">
+  </a>
+  <a href="https://www.linkedin.com/in/goutam-powar" target="_blank">
+    <img src="https://img.shields.io/badge/LinkedIn-Goutam%20Powar-0077B5?style=flat&logo=linkedin&logoColor=white" alt="LinkedIn">
+  </a>
+</p>
+
+<p align="center">Made with ❤️ by <b>Goutam Powar</b></p>
