@@ -65,8 +65,7 @@ public class Deposit extends JFrame implements ActionListener{
                             try{  
                                   connection conn = new connection();
                                   
-                                  
-                                  String balanceQuery = "SELECT Balance FROM Transaction WHERE Card_No = '" + cardnumber + "' ORDER BY Trans_Date DESC LIMIT 1";
+                                  String balanceQuery = "SELECT Balance FROM Transaction WHERE Card_No = '" + cardnumber + "' ORDER BY Trans_Id DESC LIMIT 1";
                                   ResultSet rs = conn.statement.executeQuery(balanceQuery);
             
                                    if(rs.next()) {
@@ -74,7 +73,9 @@ public class Deposit extends JFrame implements ActionListener{
                                      }
                                      balance += Double.parseDouble(DepAmt);
                                   
-                                  String query = "INSERT INTO Transaction VALUES ('"+cardnumber+"','"+pinnumber+"' ,'"+date+"', 'Deposit', '"+DepAmt+"','"+balance+"')";
+                                  String query = "INSERT INTO Transaction (Card_No, Pin_No, Trans_Date, Trans_Type, Amount, Balance) " +
+"VALUES ('"+cardnumber+"', '"+pinnumber+"', '"+date+"', 'Deposit', '"+DepAmt+"', '"+balance+"')";
+
                                   conn.statement.executeUpdate(query);
                                   JOptionPane.showMessageDialog(null, "Rs " +DepAmt+ ".00"+ " Deposited Succesfully");
                             }catch(Exception ae){
