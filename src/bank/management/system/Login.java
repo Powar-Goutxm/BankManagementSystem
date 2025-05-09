@@ -32,8 +32,8 @@ public class Login extends JFrame implements ActionListener{
      setLayout(null);
    
         //setting headline
-    JLabel text = new JLabel("Welcome to the Bank ");
-    text.setBounds(225, 40, 400, 40);
+    JLabel text = new JLabel("Welcome to HBFC Bank ");
+    text.setBounds(215, 40, 500, 40);
     text.setFont(new Font("Osward", Font.BOLD,35));
     add(text);
    

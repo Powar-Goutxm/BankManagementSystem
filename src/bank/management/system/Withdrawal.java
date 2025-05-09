@@ -16,11 +16,11 @@ public class Withdrawal extends JFrame implements ActionListener{
         this.pinnumber = pinnumber;
         this.cardnumber = cardnumber;
         setSize(900,900);
-        setVisible(true);
+        setUndecorated(true);
         setLocation(300,0);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLayout(null);
-        
+        setVisible(true);
         
         ImageIcon i1 = new ImageIcon(ClassLoader.getSystemResource("icons/3923.jpg"));
         Image i2 = i1.getImage().getScaledInstance(900, 900, Image.SCALE_DEFAULT);
