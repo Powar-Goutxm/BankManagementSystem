@@ -28,13 +28,12 @@ public class Transactions extends JFrame implements ActionListener{
         add(imagelabel);
         
         JLabel text = new JLabel("Please Select Your Transaction");
-        text.setBounds(190, 230, 700, 35);
-        text.setFont(new Font("Raleway", Font.BOLD, 16));
+        text.setBounds(220, 280, 700, 35);
+        text.setFont(new Font("Raleway", Font.BOLD, 18));
         text.setForeground(Color.WHITE);
         imagelabel.add(text);
        
         Deposit = new JButton("Cash Deposit");
-        Deposit.setBackground(Color.WHITE);
         Deposit.setBounds(190,375,130,30);
         Deposit.addActionListener(this);
         imagelabel.add(Deposit);
