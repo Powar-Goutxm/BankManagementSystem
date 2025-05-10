@@ -3,8 +3,6 @@ CREATE DATABASE BankManagementSystem;
 -- Use Bank Management System Database
 USE BankManagementSystem;
 
-
--- Customer Table (merged Signup, Signuptwo, Signupthree details)
 CREATE TABLE Customer (
     CustomerID INT PRIMARY KEY AUTO_INCREMENT,
     Form_No VARCHAR(20),
@@ -27,7 +25,6 @@ CREATE TABLE Customer (
     ExistingAccount VARCHAR(20)
 )AUTO_INCREMENT = 111;
 
--- Account Table (linked to Customer)
 CREATE TABLE Account (
     AccountID INT PRIMARY KEY AUTO_INCREMENT,
     CustomerID INT,
@@ -38,12 +35,10 @@ CREATE TABLE Account (
     AUTO_INCREMENT = 501;
 ;
 
-
--- Transaction Table (linked to Account)
 CREATE TABLE Transaction (
     Trans_ID INT PRIMARY KEY AUTO_INCREMENT,
     AccountID INT,
-    Trans_Date DATETIME,
+    Trans_Date VARCHAR(50),
     Trans_Type VARCHAR(40),
     Amount DECIMAL(15,2),
     Balance DECIMAL(15,2),
