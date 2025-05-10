@@ -95,8 +95,8 @@ BankManagementSystem/<br>
 │   ├── 📄 Transaction.java → Transaction record handler <br>
 │   └── ... (other Java files)<br>
 ├── 📄 .gitignore<br>
-├── 📜 BMS Queries.sql → Example SQL queries<br>
-├── 🗂️ BMS Schema.sql → Database schema definition<br>
+├── 📜 BMS-Queries.sql → Example SQL queries<br>
+├── 🗂️ Optimized-BMS-Schema.sql → Database schema definition<br>
 ├── 🏗️ build.xml<br>
 ├── 📄 manifest.mf<br>
 └── 📖 README.md<br>
