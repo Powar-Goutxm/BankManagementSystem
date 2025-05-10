@@ -12,10 +12,14 @@ public class SignupThree extends JFrame implements ActionListener{
     JButton b1,b2;
     JCheckBox c1;
     ButtonGroup accountTypGrp;
-    String formno;
+    String customerID,formno;
     
-    SignupThree(String formno){
+    //constructor
+    SignupThree(String customerID,String formno){
+        this.customerID = customerID;
         this.formno = formno;
+        
+        
         setTitle("NEW ACCOUNT APPLICATION FORM - PAGE 3");
         getContentPane().setBackground(Color.white);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -162,10 +166,18 @@ public class SignupThree extends JFrame implements ActionListener{
            else if(r4.isSelected()){
            accountType = "Recurring Deposit Account";
            }
-           //Generating PinNo
-           Random random = new Random();
-           String cardNo = "" + Math.abs((random.nextLong() % 90000000L) + 233569000000L);
            
+           if(!c1.isSelected()){
+               JOptionPane.showMessageDialog(null, "Please confirm the declaration checkbox.");
+               return;
+            }
+           
+           //Generating PinNo
+            Random random = new Random();
+            String bin = "421965";
+            long remainingDigits = Math.abs((random.nextLong() % 9000000000000L) + 1000000000000L);
+            String cardNo = bin + remainingDigits;
+          
            //Default pinNo Generated
            String pinNo = "" + Math.abs((random.nextLong() & 9000L) + 1000L);
            
@@ -174,10 +186,9 @@ public class SignupThree extends JFrame implements ActionListener{
                     JOptionPane.showMessageDialog(null, "Account Type is Required");
                }else{
                    connection conn = new connection();
-                   String query1 = "INSERT INTO SignupThree VALUES ('"+formno+"', '"+accountType+"', '"+cardNo+"', '"+pinNo+"')";
-                   String query2 = "INSERT INTO Login VALUES ('"+formno+"', '"+cardNo+"', '"+pinNo+"')";
-                   conn.statement.executeUpdate(query1);
-                   conn.statement.executeUpdate(query2);
+                  String query = "INSERT INTO Account (CustomerID, Account_Type, Card_No, Pin_No) " +
+                                   "VALUES ('" + customerID + "', '" + accountType + "', '" + cardNo + "', '" + pinNo + "')";
+                    conn.statement.executeUpdate(query);
                    
                    JOptionPane.showMessageDialog(null, "Card Number: " + cardNo + "\n Pin No: " + pinNo + "\n Please Take a Note Of These! ");
                    
@@ -195,6 +206,6 @@ public class SignupThree extends JFrame implements ActionListener{
     }
     
     public static void main(String[] args){
-    SignupThree s3 = new SignupThree(""); 
+    SignupThree s3 = new SignupThree("",""); 
     }
 }

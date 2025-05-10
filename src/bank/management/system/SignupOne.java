@@ -4,6 +4,7 @@ import javax.swing.*;
 import java.util.*;
 import com.toedter.calendar.JDateChooser;
 import java.awt.event.*;
+import java.sql.*;
 
 public class SignupOne extends JFrame implements ActionListener {
     //Global declaration
@@ -207,11 +208,12 @@ public class SignupOne extends JFrame implements ActionListener {
     String mname = mnameTField.getText();
     String dob = ((JTextField) datechooser.getDateEditor().getUiComponent()).getText();
     String email = emailTField.getText();
-    
     String locality = localityTField.getText();
     String city = cityTField.getText();
     String state = stateTField.getText();
     String pin = pcodeTField.getText();
+    int customerID = 0;
+
     
      //checking radio buttons clicked
     String gender = null;
@@ -241,10 +243,20 @@ public class SignupOne extends JFrame implements ActionListener {
                }  
             else{
             connection c = new connection();
-            String query = "INSERT INTO SignUp VALUES ('"+formno+"','"+name+"','"+fname+"','"+mname+"','"+dob+"','"+gender+"','"+email+"','"+marriage+"','"+locality+"','"+state+"','"+city+"','"+pin+"')";            
-            c.statement.executeUpdate(query);
+            
+            String query = "INSERT INTO Customer (Form_No, Name, Father_Name, Mother_Name, Date_Of_Birth, Gender,"
+                    + " Email, Marital_Status, Locality, State, City, Pin_Code) VALUES ('" + formno + "','"
+                + name + "','" + fname + "','" + mname + "','" + dob + "','" + gender + "','" + email + "','"
+                + marriage + "','" + locality + "','" + state + "','" + city + "','" + pin + "')";
+                c.statement.executeUpdate(query);
+                
+                ResultSet rs = c.statement.executeQuery("SELECT LAST_INSERT_ID()");
+                if (rs.next()) {
+                customerID = rs.getInt(1);
+                    System.out.println("Inserted Customer ID: " + customerID);
+            }
              setVisible(false);
-            new SignupTwo(formno).setVisible(true);
+            new SignupTwo(customerID,formno).setVisible(true);
             }
         
        }catch(Exception ae){

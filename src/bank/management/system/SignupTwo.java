@@ -11,11 +11,14 @@ public class SignupTwo extends JFrame implements ActionListener  {
      JButton next,previous;
      JRadioButton ExYes,ExNo;
      JComboBox Rel,Catg,Incm,EduQual,Occup;
-     String formno;
+     String customerID,formno;
      ButtonGroup ExistingGrp;
+     
     //constructor
-    SignupTwo(String formno){
+    SignupTwo(int customerID, String formno){
+        this.customerID = String.valueOf(customerID);
         this.formno = formno;
+        
         //setting the frame
     getContentPane().setBackground(Color.white);
     setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -160,7 +163,6 @@ public class SignupTwo extends JFrame implements ActionListener  {
     
        try{
            
-           
            if((e.getSource() == next) && (religion.equals("") || category.equals("") || income.equals("") || education.equals("")
            || occupation.equals("")  || ExistingGrp.getSelection() == null)){
             JOptionPane.showMessageDialog(null, "Enter All the Details");
@@ -171,10 +173,12 @@ public class SignupTwo extends JFrame implements ActionListener  {
                }  
             else{
                 connection c = new connection();
-            String query = "INSERT INTO SignUpTwo VALUES ('"+formno+"','"+religion+"','"+category+"','"+income+"','"+education+"','"+occupation+"','"+existAccount+"')";            
-            c.statement.executeUpdate(query);
+           String query = "UPDATE Customer SET Religion = '" + religion + "', Category = '" + category + "', Income = '"
+                        + income + "', Education = '" + education + "', Occupation = '" + occupation + "', ExistingAccount = '"
+                        + existAccount + "' WHERE CustomerID = '" + customerID + "'";
+                         c.statement.executeUpdate(query);
             setVisible(false);
-            new SignupThree(formno).setVisible(true);
+            new SignupThree(customerID,formno).setVisible(true);
             }
            
        }catch(Exception ae){
@@ -183,7 +187,7 @@ public class SignupTwo extends JFrame implements ActionListener  {
     }
     
     public static void main(String args[]){
-    new SignupTwo("");
+    new SignupTwo(0,"");
     }
 }
 
