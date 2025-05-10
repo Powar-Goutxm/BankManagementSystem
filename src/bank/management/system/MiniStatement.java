@@ -6,11 +6,13 @@ import java.awt.event.*;
 import java.sql.*;
         
 public class MiniStatement extends JFrame implements ActionListener{
-    String cardnumber;
+    String transID,accountID;
     JButton exitButton;
     
-    MiniStatement(String cardnumber, String pinnumber) {
-        this.cardnumber = cardnumber;
+    MiniStatement(String transID, String accountID) {
+        this.transID = transID;
+        this.accountID = accountID;
+        
         
         setSize(400, 475);
         setLocation(790, 245);
@@ -53,10 +55,10 @@ public class MiniStatement extends JFrame implements ActionListener{
         
         try {
             connection conn = new connection();
-            String query = "SELECT * FROM Login WHERE Card_No = '"+cardnumber+"'";
+            String query = "SELECT * FROM Account WHERE AccountID = '"+accountID+"'";
             ResultSet rs = conn.statement.executeQuery(query);
             while(rs.next()) {
-                card.setText("Card Number: " +"XXXXXXXX"+ rs.getString("Card_No").substring(8, 12));
+                card.setText("Card Number: " +"XXXXXXXXXX"+ rs.getString("Card_No").substring(10, 16));
             }
         } catch(Exception e) {
             e.printStackTrace();
@@ -64,7 +66,7 @@ public class MiniStatement extends JFrame implements ActionListener{
         
         try {
             connection conn = new connection();
-            ResultSet rs = conn.statement.executeQuery("SELECT * FROM Transaction WHERE Card_No = '"+cardnumber+"'");
+            ResultSet rs = conn.statement.executeQuery("SELECT * FROM Transaction WHERE AccountID = '"+accountID+"'");
             
             //HTML table code
             StringBuilder htmlContent = new StringBuilder();
@@ -97,6 +99,9 @@ public class MiniStatement extends JFrame implements ActionListener{
             } else {
                 text.setText("<html><p>No transactions found for this account.</p></html>");
             }
+           rs.close();
+           conn.statement.close();
+           conn.conn.close();
             
         } catch(Exception ae) {
             ae.printStackTrace();
@@ -111,6 +116,6 @@ public class MiniStatement extends JFrame implements ActionListener{
             }
      
     public static void main(String[] args) {
-        new MiniStatement("", "");
+        new MiniStatement("","");
     }
 }

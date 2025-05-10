@@ -89,20 +89,25 @@ public class Login extends JFrame implements ActionListener {
     // Button working
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == login) {
-            connection conn = new connection();
+            String transID = null;
             String cardnumber = cardTField.getText();
             String pinnumber = pinTField.getText();
 
-            // Updated query to Account table
-            String query = "SELECT * FROM Account WHERE Card_No = '" + cardnumber + "' AND Pin_No = '" + pinnumber + "'";
+           
             try {
+                connection conn = new connection();
+                String query = "SELECT AccountID FROM Account WHERE Card_No = '" + cardnumber + "' AND Pin_No = '" + pinnumber + "'";
                 ResultSet rs = conn.statement.executeQuery(query);
                 if (rs.next()) {
+                     String accountID = rs.getString("AccountID");
                     setVisible(false);
-                    new Transactions(cardnumber, pinnumber).setVisible(true);
+                    new Transactions(transID,accountID).setVisible(true);
                 } else {
                     JOptionPane.showMessageDialog(null, "Incorrect Card Number or PIN");
                 }
+                rs.close();
+                conn.statement.close();
+                conn.conn.close();
             } catch (Exception ae) {
                 ae.printStackTrace();
             }

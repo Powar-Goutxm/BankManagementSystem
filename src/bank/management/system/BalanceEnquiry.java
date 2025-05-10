@@ -7,10 +7,11 @@ import java.sql.*;
 
 public class BalanceEnquiry extends JFrame implements ActionListener{
     JButton back;
-    String cardnumber,pinnumber;
-    BalanceEnquiry(String cardnumber,String pinnumber){   // parameterised constructor
-        this.cardnumber = cardnumber ;
-        this.pinnumber = pinnumber ;
+    String transID,accountID;
+    BalanceEnquiry(String transID, int accountID){ 
+        this.transID = transID ;
+        this.accountID = String.valueOf(accountID);
+        
         setLayout(null);
         setSize(900,900);                                
         setLocation (300,0);
@@ -34,14 +35,18 @@ public class BalanceEnquiry extends JFrame implements ActionListener{
         Double balance = 0.00;
         
         try {
-           String balanceQuery = "SELECT Balance FROM Transaction WHERE Card_No = '" + cardnumber + "' ORDER BY Trans_Id DESC LIMIT 1";
-                                  ResultSet rs = conn.statement.executeQuery(balanceQuery);
+           String balanceQuery = "SELECT Balance FROM Transaction WHERE AccountID = '" + accountID + "' ORDER BY Trans_Id DESC LIMIT 1";
+           ResultSet rs = conn.statement.executeQuery(balanceQuery);
             
-                                   if(rs.next()) {
-                                     balance = Double.parseDouble(rs.getString("Balance"));
-                                     }      
+           if(rs.next()) {
+           balance = Double.parseDouble(rs.getString("Balance"));
+          }
+           rs.close();
+           conn.statement.close();
+           conn.conn.close();
+           
         }catch (Exception e ){
-            System.out.println(e);
+            e.printStackTrace();
         }
         
        JLabel text = new JLabel("Your Current Account Balance Is Rs " + balance);
@@ -52,10 +57,10 @@ public class BalanceEnquiry extends JFrame implements ActionListener{
     }
     public void actionPerformed(ActionEvent ae){
         setVisible(false);
-        new Transactions(cardnumber,pinnumber).setVisible(true);
+        new Transactions(transID,accountID).setVisible(true);
     }
     public static void main (String agrs[]){
-        new BalanceEnquiry("", "");
+        new BalanceEnquiry("",0);
         
     }
     

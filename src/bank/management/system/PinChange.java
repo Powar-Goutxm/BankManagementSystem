@@ -8,12 +8,12 @@ public class PinChange extends JFrame implements ActionListener{
     JTextField pin;
     JPasswordField repin;
     JButton  change, exit;
-    String cardnumber,pinnumber;
-
+    String transID,accountID;
     
-    PinChange(String cardnumber,String pinnumber){
-        this.cardnumber = cardnumber;
-        this.pinnumber = pinnumber;
+    //constructor
+    PinChange(String transID,String accountID){
+        this.accountID = accountID;
+        this.transID = transID;
         
         setSize(900,900);
         setUndecorated(true);
@@ -62,7 +62,7 @@ public class PinChange extends JFrame implements ActionListener{
             change.addActionListener(this);
             image.add(change);
         
-            exit = new JButton("Exit");
+            exit = new JButton("Back");
             exit.setBounds(370,452,135,30);
             exit.addActionListener(this);
             image.add(exit);
@@ -71,8 +71,8 @@ public class PinChange extends JFrame implements ActionListener{
      public void actionPerformed(ActionEvent e){
         if(e.getSource() ==  change){
              try{
-             String npin = pin.getText();
-             String rpin = repin.getText();
+             String npin = pin.getText().trim();
+             String rpin = new String(repin.getPassword()).trim();
              
              if(!npin.equals(rpin)){
                  JOptionPane.showMessageDialog(null, "Pins Do Not Match! Please Re-eneter Your Pin");
@@ -84,22 +84,32 @@ public class PinChange extends JFrame implements ActionListener{
                  return;
              }
             
-                connection conn = new connection();
-                String query1 = "Update Transaction SET Pin_No = '"+npin +"' WHERE Card_No = '"+cardnumber+"'";
-                String query2 = "Update Login SET Pin_No = '"+npin +"' WHERE Card_No = '"+cardnumber+"'";
-                String query3 = "Update SignupThree SET Pin_No = '"+npin +"' WHERE Card_No = '"+cardnumber+"'";
-                conn.statement.executeUpdate(query1);
-                conn.statement.executeUpdate(query2);
-                conn.statement.executeUpdate(query3);
+             if (accountID == null || accountID.trim().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Invalid Account ID!");
+             return;
+            }
              
+                connection conn = new connection();
+                String query = "Update Account SET Pin_No = '"+npin +"' WHERE AccountID = '"+accountID+"'";
+                conn.statement.executeUpdate(query);
+                
+                conn.statement.close();
+                conn.conn.close();
+                
                 JOptionPane.showMessageDialog(null, "Pin Changed Succesfully");
+                setVisible(false);
+                new Login ().setVisible(true);
                 
          }catch(Exception ae){
              ae.printStackTrace();
             }
-        }else{
+        
+             
+        if(e.getSource() == exit){
             setVisible(false);
-            new Login ().setVisible(true);
+            new Transactions(transID,accountID).setVisible(true);
+            
+          }
         }
      }
     

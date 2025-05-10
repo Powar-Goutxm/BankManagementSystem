@@ -1,19 +1,17 @@
 package bank.management.system;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.util.*;
 import java.sql.*;
 
 public class Deposit extends JFrame implements ActionListener{
     JButton deposit,back;
-    String cardnumber,pinnumber;
     JTextField amount;
+    String accountID;
     
-    Deposit(String cardnumber, String pinnumber){
-        this.cardnumber = cardnumber;
-        this.pinnumber = pinnumber;
+    Deposit(int accountID){
+       this.accountID = String.valueOf(accountID);
+       
         setSize(900,900);
         setUndecorated(true);
         setLocation(300,0);
@@ -48,12 +46,11 @@ public class Deposit extends JFrame implements ActionListener{
         back.setBounds(370,452,135,30);
         back.addActionListener(this);
         image.add(back);
-        
-        
     }
     
     public void actionPerformed(ActionEvent e){
         double balance = 0.00;
+        String transID = null;
             if(e.getSource() == deposit){
                 String DepAmt = amount.getText();
                 java.util.Date date = new java.util.Date();
@@ -65,7 +62,7 @@ public class Deposit extends JFrame implements ActionListener{
                             try{  
                                   connection conn = new connection();
                                   
-                                  String balanceQuery = "SELECT Balance FROM Transaction WHERE Card_No = '" + cardnumber + "' ORDER BY Trans_Id DESC LIMIT 1";
+                                  String balanceQuery = "SELECT Balance FROM Transaction WHERE AccountID = '" + accountID + "' ORDER BY Trans_Id DESC LIMIT 1";
                                   ResultSet rs = conn.statement.executeQuery(balanceQuery);
             
                                    if(rs.next()) {
@@ -73,25 +70,34 @@ public class Deposit extends JFrame implements ActionListener{
                                      }
                                      balance += Double.parseDouble(DepAmt);
                                   
-                                  String query = "INSERT INTO Transaction (Card_No, Pin_No, Trans_Date, Trans_Type, Amount, Balance) " +
-"VALUES ('"+cardnumber+"', '"+pinnumber+"', '"+date+"', 'Deposit', '"+DepAmt+"', '"+balance+"')";
-
+                                  String query = "INSERT INTO Transaction (AccountID, Trans_Date, Trans_Type, Amount, Balance) " +
+                                "VALUES ('" + accountID + "', '" + date + "', 'Deposit', '" + DepAmt + "', '" + balance + "')";
                                   conn.statement.executeUpdate(query);
+                                  
+                                  ResultSet rx = conn.statement.executeQuery("SELECT LAST_INSERT_ID()");
+                                 if (rx.next()) {
+                                 transID  = rx.getString(1);
+                                 }
                                   JOptionPane.showMessageDialog(null, "Rs " +DepAmt+ ".00"+ " Deposited Succesfully");
+                                   rs.close();
+                                   rx.close();
+                                   conn.statement.close();
+                                   conn.conn.close();
+                                  
                             }catch(Exception ae){
                                 ae.printStackTrace();
                             }
                         setVisible(false);
-                        new Transactions(cardnumber,pinnumber).setVisible(true);
+                        new Transactions(transID,accountID).setVisible(true);
                     }
                     
             }else if(e.getSource() == back){
                 setVisible(false);
-                new Transactions(cardnumber,pinnumber).setVisible(true);
+                new Transactions(transID,accountID).setVisible(true);
             }
         
         }
     public static void main(String[] args){
-        new Deposit("","");
+        new Deposit(0);
     }
 }

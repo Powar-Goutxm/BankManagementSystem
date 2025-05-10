@@ -154,6 +154,8 @@ public class SignupThree extends JFrame implements ActionListener{
     public void actionPerformed(ActionEvent e){
     if(e.getSource() == b1){
        String accountType = null;
+       int accountID = 0;
+
            if(r1.isSelected()){
            accountType = "Savings Account";
            }
@@ -175,7 +177,7 @@ public class SignupThree extends JFrame implements ActionListener{
            //Generating PinNo
             Random random = new Random();
             String bin = "421965";
-            long remainingDigits = Math.abs((random.nextLong() % 9000000000000L) + 1000000000000L);
+            long remainingDigits = Math.abs((random.nextLong() % 9000000000L) + 1000000000L);
             String cardNo = bin + remainingDigits;
           
            //Default pinNo Generated
@@ -190,10 +192,17 @@ public class SignupThree extends JFrame implements ActionListener{
                                    "VALUES ('" + customerID + "', '" + accountType + "', '" + cardNo + "', '" + pinNo + "')";
                     conn.statement.executeUpdate(query);
                    
+                     ResultSet rs = conn.statement.executeQuery("SELECT LAST_INSERT_ID()");
+                if (rs.next()) {
+                accountID  = rs.getInt(1);
+                 }     
                    JOptionPane.showMessageDialog(null, "Card Number: " + cardNo + "\n Pin No: " + pinNo + "\n Please Take a Note Of These! ");
                    
                    setVisible(false);
-                   new Deposit(cardNo,pinNo).setVisible(true);
+                   new Deposit(accountID).setVisible(true);
+                   rs.close();
+                   conn.statement.close();
+                   conn.conn.close();
                }
            }catch(Exception ae){
                 ae.printStackTrace();

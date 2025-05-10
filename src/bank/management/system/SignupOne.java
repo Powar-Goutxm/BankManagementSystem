@@ -253,8 +253,10 @@ public class SignupOne extends JFrame implements ActionListener {
                 ResultSet rs = c.statement.executeQuery("SELECT LAST_INSERT_ID()");
                 if (rs.next()) {
                 customerID = rs.getInt(1);
-                    System.out.println("Inserted Customer ID: " + customerID);
             }
+                rs.close();
+                c.statement.close();
+                c.conn.close();
              setVisible(false);
             new SignupTwo(customerID,formno).setVisible(true);
             }

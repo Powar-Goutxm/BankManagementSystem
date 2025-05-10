@@ -5,16 +5,15 @@ import java.awt.*;
 import java.awt.event.*;
 import java.sql.*;
 
-import static javax.swing.WindowConstants.EXIT_ON_CLOSE;
-
 public class Withdrawal extends JFrame implements ActionListener{
     JButton withdraw,back;
-    String cardnumber,pinnumber;
+    String transID,accountID;
     JTextField amount;
     
-    Withdrawal(String cardnumber,String pinnumber){
-        this.pinnumber = pinnumber;
-        this.cardnumber = cardnumber;
+    Withdrawal(String transID,int accountID){
+    this.transID = transID;
+    this.accountID = String.valueOf(accountID);
+    
         setSize(900,900);
         setUndecorated(true);
         setLocation(300,0);
@@ -54,19 +53,19 @@ public class Withdrawal extends JFrame implements ActionListener{
     public void actionPerformed(ActionEvent e){
         double balance = 0.00;
             if(e.getSource() == withdraw){
-                String DepAmt = amount.getText();
-                double depositAmount = Double.parseDouble(DepAmt);
+                String withdrawAmt = amount.getText();
+                double withdrawAmount = Double.parseDouble(withdrawAmt);
                 java.util.Date date = new java.util.Date();
                 
                 
-                if(DepAmt.equals("")){
+                if(withdrawAmt.equals("")){
                         JOptionPane.showMessageDialog(null,"Amount Field Empty! Please Enter the amount");
                         
                     }else{
                             try{  
                                   connection conn = new connection();
                                   
-                                  String balanceQuery = "SELECT Balance FROM Transaction WHERE Card_No = '" + cardnumber + "' ORDER BY Trans_Id DESC LIMIT 1";
+                                   String balanceQuery = "SELECT Balance FROM Transaction WHERE AccountID = '" + accountID + "' ORDER BY Trans_Id DESC LIMIT 1";
                                   ResultSet rs = conn.statement.executeQuery(balanceQuery);
             
                                    if(rs.next()) {
@@ -74,12 +73,16 @@ public class Withdrawal extends JFrame implements ActionListener{
                                      }                 
                                         
                                         
-                                        if(depositAmount <= balance){
-                                            balance -= depositAmount;
-                                            String query = "INSERT INTO Transaction (Card_No, Pin_No, Trans_Date, Trans_Type, Amount, Balance) " +
-"VALUES ('"+cardnumber+"', '"+pinnumber+"', '"+date+"', 'Withdraw', '"+DepAmt+"', '"+balance+"')";
+                                        if(withdrawAmount <= balance){
+                                            balance -= withdrawAmount;
+                                            String query = "INSERT INTO Transaction (AccountID, Trans_Date, Trans_Type, Amount, Balance) " +
+                                "VALUES ('" + accountID + "', '" + date + "', 'Withdraw', '" + withdrawAmt + "', '" + balance + "')";
                                             conn.statement.executeUpdate(query);
-                                            JOptionPane.showMessageDialog(null, "Rs " +DepAmt+ ".00"+ " Withdraw Succesfull");
+                                            rs.close();
+                                            conn.statement.close();
+                                            conn.conn.close();
+                                            
+                                            JOptionPane.showMessageDialog(null, "Rs " +withdrawAmt+ ".00"+ " Withdraw Succesfull");
                                         
                                         }else{
                                             JOptionPane.showMessageDialog(null, "Insufficeient Balance! Enter Again");
@@ -89,17 +92,17 @@ public class Withdrawal extends JFrame implements ActionListener{
                                 ae.printStackTrace();
                             }
                         setVisible(false);
-                        new Transactions(cardnumber,pinnumber).setVisible(true);
+                        new Transactions(transID,accountID).setVisible(true);
                     }
                 
                     
             }else if(e.getSource() == back){
                 setVisible(false);
-                new Transactions(cardnumber,pinnumber).setVisible(true);
+               new Transactions(transID,accountID).setVisible(true);
             }
         
         }
     public static void main(String[] args){
-        new Withdrawal("","");
+        new Withdrawal("",0);
     }
 }

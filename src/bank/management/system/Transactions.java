@@ -8,11 +8,12 @@ import java.util.*;
 
 public class Transactions extends JFrame implements ActionListener{
     JButton Deposit,Withdrawal,Mstatement,Pinchange,Balance,Exit;
-    String cardnumber,pinnumber;
+    String transID,accountID;
     
-    Transactions(String cardnumber ,String pinnumber){
-        this.pinnumber = pinnumber;
-        this.cardnumber = cardnumber;
+    Transactions(String transID,String accountID){
+        this.transID = transID;
+        this.accountID = accountID;
+       
         setSize(980, 900);
         setLocation(220,0);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -72,23 +73,22 @@ public class Transactions extends JFrame implements ActionListener{
         
         }else if(e.getSource() == Deposit){
         setVisible(false);
-        new Deposit(cardnumber,pinnumber).setVisible(true);
+        new Deposit(Integer.parseInt(accountID)).setVisible(true);
         
         }else if(e.getSource() == Withdrawal){
             setVisible(false);
-            new Withdrawal(cardnumber,pinnumber).setVisible(true);
+            new Withdrawal(transID,Integer.parseInt(accountID)).setVisible(true);
             
         }else if(e.getSource() == Balance){
             setVisible(false);
-            new BalanceEnquiry(cardnumber,pinnumber).setVisible(true);
+            new BalanceEnquiry(transID,Integer.parseInt(accountID)).setVisible(true);
             
         }else if(e.getSource() == Pinchange){
             setVisible(false);
-            new PinChange(cardnumber,pinnumber).setVisible(true);
+            new PinChange(transID,accountID).setVisible(true);
         }
-        
         else if(e.getSource() == Mstatement){
-            new MiniStatement(cardnumber,pinnumber).setVisible(true);
+            new MiniStatement(transID,accountID).setVisible(true);
         }
     }
     
