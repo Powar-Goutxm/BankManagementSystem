@@ -96,6 +96,8 @@ public class Transactions extends JFrame implements ActionListener{
             new MiniStatement(transID,accountID).setVisible(true);
         }
         else if(e.getSource() == deactivate){
+            setVisible(false);
+            
             new DeactivateAccount(transID,accountID).setVisible(true);
         }
     }

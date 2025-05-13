@@ -88,7 +88,7 @@ public class SignupThree extends JFrame implements ActionListener{
         l3.setBounds(50,310,200,30);
         add(l3);
         
-        l4 = new JLabel("XXXX-XXXX-XXXX-4184");
+        l4 = new JLabel("4219-XXXX-XXXX-XXXX");
         l4.setFont(new Font("Raleway", Font.BOLD, 18));
         l4.setBounds(280,310,250,30);
         add(l4);
@@ -171,6 +171,10 @@ public class SignupThree extends JFrame implements ActionListener{
            
            if(!c1.isSelected()){
                JOptionPane.showMessageDialog(null, "Please confirm the declaration checkbox.");
+               return;
+            }
+           if(!r1.isSelected() || !r2.isSelected() || !r3.isSelected() || !r4.isSelected() ){
+               JOptionPane.showMessageDialog(null, "Please Select an Account Type.");
                return;
             }
            

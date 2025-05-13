@@ -156,13 +156,21 @@ public class SignupTwo extends JFrame implements ActionListener  {
      //checking radio buttons clicked
     String existAccount = null;
     if (ExYes.isSelected()){
-           existAccount = "Yes";
+               int response = JOptionPane.showConfirmDialog(null,"Do You Want To Login Through That Account",
+               "Confirm Login",
+                JOptionPane.YES_NO_OPTION);
+               if (response == JOptionPane.YES_OPTION) {
+                   existAccount = "Yes";
+                   new Login();
+               }else if(response == JOptionPane.NO_OPTION){
+                    existAccount = "No";
+               }
+               
        }else if(ExNo.isSelected()){
            existAccount = "No";
        }
     
        try{
-           
            if((e.getSource() == next) && (religion.equals("") || category.equals("") || income.equals("") || education.equals("")
            || occupation.equals("")  || ExistingGrp.getSelection() == null)){
             JOptionPane.showMessageDialog(null, "Enter All the Details");

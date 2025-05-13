@@ -34,8 +34,8 @@ public class DeactivateAccount extends JFrame implements ActionListener{
             
             JLabel warning = new JLabel("Warning: This action will disable access to your account");
             warning.setForeground(Color.RED);
-            warning.setFont(new Font("System", Font.BOLD, 14));
-            warning.setBounds(150, 370, 500, 35);
+            warning.setFont(new Font("System", Font.BOLD, 13));
+            warning.setBounds(155, 370, 500, 35);
             image.add(warning);
             
             deactivate = new JButton("Deactivate");  
