@@ -188,8 +188,8 @@ public class SignupThree extends JFrame implements ActionListener{
                     JOptionPane.showMessageDialog(null, "Account Type is Required");
                }else{
                    connection conn = new connection();
-                  String query = "INSERT INTO Account (CustomerID, Account_Type, Card_No, Pin_No) " +
-                                   "VALUES ('" + customerID + "', '" + accountType + "', '" + cardNo + "', '" + pinNo + "')";
+                  String query = "INSERT INTO Account (CustomerID, Account_Type, Card_No, Pin_No, Account_Status) " +
+                                   "VALUES ('" + customerID + "', '" + accountType + "', '" + cardNo + "', '" + pinNo + "', 'Active')";
                     conn.statement.executeUpdate(query);
                    
                      ResultSet rs = conn.statement.executeQuery("SELECT LAST_INSERT_ID()");

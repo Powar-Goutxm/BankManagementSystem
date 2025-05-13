@@ -42,7 +42,7 @@ public class PinChange extends JFrame implements ActionListener{
             image.add(pintext);
             
             pin = new JTextField();
-            pin.setFont(new Font ("Raleway" , Font.BOLD, 20));
+            pin.setFont(new Font ("Raleway", Font.BOLD, 20));
             pin.setBounds(330,360,180,25);
             image.add(pin);
 

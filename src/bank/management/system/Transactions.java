@@ -7,7 +7,7 @@ import java.sql.*;
 import java.util.*;
 
 public class Transactions extends JFrame implements ActionListener{
-    JButton Deposit,Withdrawal,Mstatement,Pinchange,Balance,Exit;
+    JButton Deposit,Withdrawal,Mstatement,Pinchange,Balance,deactivate,Exit;
     String transID,accountID;
     
     Transactions(String transID,String accountID){
@@ -29,38 +29,43 @@ public class Transactions extends JFrame implements ActionListener{
         add(imagelabel);
         
         JLabel text = new JLabel("Please Select Your Transaction");
-        text.setBounds(220, 280, 700, 35);
-        text.setFont(new Font("Raleway", Font.BOLD, 18));
+        text.setBounds(210, 280, 700, 35);
+        text.setFont(new Font("Raleway", Font.BOLD, 19));
         text.setForeground(Color.WHITE);
         imagelabel.add(text);
        
         Deposit = new JButton("Cash Deposit");
-        Deposit.setBounds(190,375,130,30);
+        Deposit.setBounds(180,375,145,31);
         Deposit.addActionListener(this);
         imagelabel.add(Deposit);
         
         Withdrawal = new JButton("Cash Withdrawal");
-        Withdrawal.setBounds(390,375,133,30);
+        Withdrawal.setBounds(390,375,145,31);
         Withdrawal.addActionListener(this);
         imagelabel.add(Withdrawal);
         
         Mstatement = new JButton("Mini Statement");
         Mstatement.addActionListener(this);
-        Mstatement.setBounds(190,413,130,30);
+        Mstatement.setBounds(180,413,145,31);
         imagelabel.add(Mstatement);
         
         Pinchange = new JButton("Pin Change");
         Pinchange.addActionListener(this);
-        Pinchange.setBounds(390,413,133,30);
+        Pinchange.setBounds(390,413,145,31);
         imagelabel.add(Pinchange);
         
         Balance = new JButton("Balance Enquiry");
-        Balance.setBounds(190,450,130,30);
+        Balance.setBounds(180,450,145,31);
         Balance.addActionListener(this);
         imagelabel.add(Balance);
         
+        deactivate = new JButton("Deactivate Account");
+        deactivate.setBounds(390,450,145,31);
+        deactivate.addActionListener(this);
+        imagelabel.add(deactivate);
+        
         Exit = new JButton("Exit");
-        Exit.setBounds(390,450,133,30);
+        Exit.setBounds(390,487,145,31);
         Exit.addActionListener(this);
         imagelabel.add(Exit);
         
@@ -89,6 +94,9 @@ public class Transactions extends JFrame implements ActionListener{
         }
         else if(e.getSource() == Mstatement){
             new MiniStatement(transID,accountID).setVisible(true);
+        }
+        else if(e.getSource() == deactivate){
+            new DeactivateAccount(transID,accountID).setVisible(true);
         }
     }
     

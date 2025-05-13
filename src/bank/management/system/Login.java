@@ -96,16 +96,28 @@ public class Login extends JFrame implements ActionListener {
            
             try {
                 connection conn = new connection();
-                String query = "SELECT AccountID FROM Account WHERE Card_No = '" + cardnumber + "' AND Pin_No = '" + pinnumber + "'";
+                
+                String checkAcc = "SELECT Account_Status FROM Account WHERE Card_No = '" + cardnumber + "'";
+                 ResultSet rx = conn.statement.executeQuery(checkAcc);
+                 if (rx.next()) {
+                String accountStatus = rx.getString("Account_Status");
+                
+                 if (accountStatus.equals("Active")){
+                     String query = "SELECT AccountID FROM Account WHERE Card_No = '" + cardnumber + "' AND Pin_No = '" + pinnumber + "' AND Account_Status = 'Active'";
                 ResultSet rs = conn.statement.executeQuery(query);
                 if (rs.next()) {
                      String accountID = rs.getString("AccountID");
                     setVisible(false);
                     new Transactions(transID,accountID).setVisible(true);
-                } else {
-                    JOptionPane.showMessageDialog(null, "Incorrect Card Number or PIN");
-                }
-                rs.close();
+                    rs.close();
+                    } else {
+                            JOptionPane.showMessageDialog(null, "Incorrect Card Number or PIN ");
+                           }
+                 }else{
+                      JOptionPane.showMessageDialog(null, "Your Account Is Deactivated, \nCreate a New Account  ");
+                 }
+                 
+              }
                 conn.statement.close();
                 conn.conn.close();
             } catch (Exception ae) {
