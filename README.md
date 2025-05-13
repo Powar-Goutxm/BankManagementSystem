@@ -49,6 +49,9 @@
 ### 🔢 PIN Change
 ![PinChange](screenshots/pinchange.png)
 
+### 🔢 Deactivate Account
+![DeactivateAccount](screenshots/DeactivateAccount.png)
+
 ### 📝 Sign Up (Step 1)
 ![SignUp1](screenshots/signup1.png)
 
@@ -66,6 +69,7 @@
 - Deposit and withdraw money
 - Check account balance
 - View transaction history
+- Deactivate Accounts
 - User-friendly interface with Java Swing
 - MySQL Database integration
 
@@ -93,6 +97,7 @@ BankManagementSystem/<br>
 │   ├── 📝 MiniStatement.java → Shows recent transaction history<br>
 │   ├── 🆕 Signup.java → New account signup form<br>
 │   ├── 📄 Transaction.java → Transaction record handler <br>
+│   ├── 📊 DeactivateAccount.java → Deactivates account<br>
 │   └── ... (other Java files)<br>
 ├── 📄 .gitignore<br>
 ├── 📜 BMS-Queries.sql → Example SQL queries<br>
