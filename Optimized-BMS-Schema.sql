@@ -31,6 +31,7 @@ CREATE TABLE Account (
     Account_Type VARCHAR(40),
     Card_No VARCHAR(20) UNIQUE,
     Pin_No VARCHAR(20),
+    Account_Status VARCHAR(20),
     FOREIGN KEY (CustomerID) REFERENCES Customer(CustomerID))
     AUTO_INCREMENT = 501;
 ;
